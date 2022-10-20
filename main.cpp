@@ -14,22 +14,19 @@ int main(void){
     cv::Mat img,img_clone;
     img_clone=img.clone();
     std::string path="CampusGame.mp4";
-    cv::Mat imgGray,imgHSV,mask,imgDil;
     cv::VideoCapture cap(path);
 
-    int min,max=255;
-    cv::namedWindow("Trackbars",(img.size().width,img.size().height));
-    cv::createTrackbar("Min","Trackbars",&min,255);
-    cv::createTrackbar("Max","Trackbars",&max,255);
     while(1){
-        cap.read(img);
-        cv::cvtColor(img,imgGray,cv::COLOR_BGR2GRAY);
-        cv::threshold(imgGray, imgGray, min, max, cv::THRESH_BINARY);
-	    cv::threshold(imgGray, imgGray, 0, 255, cv::THRESH_OTSU);
-        cv::imshow(" ",imgGray);
+        cap.read(img_clone);        
+        cv::cvtColor(img_clone,img_clone,cv::COLOR_BGR2GRAY);
+        cv::GaussianBlur(img_clone,img_clone,cv::Size(5,5),3,0);
+        //cv::threshold(img_clone, img_clone, 140, 255, cv::THRESH_BINARY);
+	    cv::threshold(img_clone, img_clone, 0, 255, cv::THRESH_OTSU);
+        cv::Mat kernel=cv::getStructuringElement(cv::MORPH_RECT,cv::Size(5,5));
+        cv::erode(img_clone,img_clone,kernel);
+        cv::imshow(" ",img_clone);
         cv::waitKey(0);   
     }
-
 }
 
 
