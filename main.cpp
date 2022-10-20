@@ -1,5 +1,5 @@
 #include<iostream>
-#include"1.h"
+#include"1/1.h"
 using namespace std;
 int main(){
 
