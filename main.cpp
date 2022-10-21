@@ -7,7 +7,7 @@
 #include <opencv2/ml/ml.hpp>  
 #include <io.h>
 
-#include"1/1.h"
+#include"GetContours/GetContours.h"
 //预处理
 int main(void){
 
@@ -15,7 +15,8 @@ int main(void){
     img_clone=img.clone();
     std::string path="CampusGame.mp4";
     cv::VideoCapture cap(path);
-
+    
+    GetContours(img_clone,img);
     while(1){
         cap.read(img_clone);        
         cv::cvtColor(img_clone,img_clone,cv::COLOR_BGR2GRAY);
@@ -27,6 +28,7 @@ int main(void){
         cv::imshow(" ",img_clone);
         cv::waitKey(0);   
     }
+    
 }
 
 
