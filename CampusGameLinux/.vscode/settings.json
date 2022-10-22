@@ -1,0 +1,16 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp",
+        "string": "cpp",
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "ostream": "cpp",
+        "ratio": "cpp"
+    }
+}
