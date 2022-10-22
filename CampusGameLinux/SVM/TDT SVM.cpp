@@ -6,7 +6,7 @@
 #include <opencv2/core/core.hpp>  
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/ml/ml.hpp>  
-#include <io.h> //查找文件相关函数
+//#include <io.h> //查找文件相关函数
  
  
 using namespace std;
@@ -26,11 +26,11 @@ int main()
 				//紧接着会将标签写入另一个容器中，这样就保证了特征
 				//  和标签是一一对应的关系。
 	//===============================读取训练数据===============================
-	const int classsum = 5;//图片共有10类，可修改
+	const int classsum = 4;//图片共有10类，可修改
 	const int imagesSum = 1000;//每类有张图片，可修改	
 	//训了样本图片与测试图片的尺寸应该一样
-	const int imageRows = 28;//图片尺寸
-	const int imageCols = 28;
+	const int imageRows = 16;//图片尺寸
+	const int imageCols = 16;
 	//训练数据，每一行一个训练图片
 	Mat trainingData;
 	//训练样本标签
@@ -42,10 +42,10 @@ int main()
 	//从指定文件夹下提取图片//
 	for (int p = 0; p < classsum; p++)//依次提取0到9文件夹中的图片
 	{
-		oss << "TDT_data/train/";
-		num += 1;//num从0到9
+		oss << "Samples/";
+		num += 1;//num从0到4
 		int label = num;
-		oss << num << "/*.jpg";//图片名字后缀，oss可以结合数字与字符串
+		oss << num << "/*.png";//图片名字后缀，oss可以结合数字与字符串
 		string pattern = oss.str();//oss.str()输出oss字符串，并且赋给pattern
 		oss.str("");//每次循环后把oss字符串清空
 		// cout<<oss.str()<<endl;
@@ -85,10 +85,9 @@ int main()
  
 	//==============================创建SVM模型===============================
 	// 创建分类器并设置参数
-	SVM_params = SVM::load("TDTsvm.xml");
+	SVM_params = SVM::create();
 	SVM_params->setType(SVM::C_SVC);//C_SVC用于分类，C_SVR用于回归
 	SVM_params->setKernel(SVM::LINEAR);  //LINEAR线性核函数。SIGMOID为高斯核函数
- 
 	SVM_params->setDegree(0);//核函数中的参数degree,针对多项式核函数;
 	SVM_params->setGamma(1);//核函数中的参数gamma,针对多项式/RBF/SIGMOID核函数; 
 	SVM_params->setCoef0(0);//核函数中的参数,针对多项式/SIGMOID核函数；
@@ -105,23 +104,23 @@ int main()
 	SVM_params->train(tData);//训练
  
 	//保存模型
-	SVM_params->save("TDTsvm.xml");
+	SVM_params->save("GameSvm.xml");
 	cout << "complete" << endl;
  
  
 	//===============================预测部分===============================
-	Mat src = imread("TDT_data/test/2/1.jpg");
-	cvtColor(src, src, COLOR_BGR2GRAY);
-	threshold(src, src, 0, 255, THRESH_OTSU);//大津法
-	imshow(" ", src);
-	Mat input;
-	src = src.reshape(1, 1);//输入图片序列化
-	input.push_back(src);
-	input.convertTo(input, CV_32FC1);//更改图片数据的类型，必要，不然会出错
+	// Mat src = imread("TDT_data/test/2/1.jpg");
+	// cvtColor(src, src, COLOR_BGR2GRAY);
+	// threshold(src, src, 0, 255, THRESH_OTSU);//大津法
+	// imshow(" ", src);
+	// Mat input;
+	// src = src.reshape(1, 1);//输入图片序列化
+	// input.push_back(src);
+	// input.convertTo(input, CV_32FC1);//更改图片数据的类型，必要，不然会出错
  
-	float r = SVM_params->predict(input);   //对所有行进行预测
-	cout << r << endl;
-	waitKey(0);
+	// float r = SVM_params->predict(input);   //对所有行进行预测
+	// cout << r << endl;
+	//waitKey(0);
 	return 0;
 }
  
