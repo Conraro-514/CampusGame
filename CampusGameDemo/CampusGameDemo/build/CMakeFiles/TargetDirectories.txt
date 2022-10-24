@@ -1,0 +1,3 @@
+/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/CMakeFiles/CampusGame_demo.dir
+/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/CMakeFiles/edit_cache.dir
+/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/CMakeFiles/rebuild_cache.dir
