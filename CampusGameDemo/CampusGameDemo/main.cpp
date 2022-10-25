@@ -2,6 +2,14 @@
 #include <csignal>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <stdio.h>  
+#include <time.h>    
+#include <opencv2/core/core.hpp>  
+#include <opencv2/highgui/highgui.hpp>  
+#include <opencv2/ml/ml.hpp>  
+
+#include "ColorDetection/ColorDetcetion.h";
+#include "GetContours/GetContours.h";
 
 bool reg = 0;
 
@@ -37,10 +45,25 @@ int main() {
             std::cout << "Get an empty image" << std::endl;
             cv::waitKey(100);
         }
+        
+///////////  My  Code/////////////  
+        cv::Mat img_clone = img.clone();
+        cv::Mat mask=ColorDetection(img,img_clone);
+        GetContours(img,mask);
 
-        /*
-        Code Here! Just define yaw ,pitch ,beat ... which in SendStruct's elements  and will be sent to us. 
-        */
+
+
+
+
+
+
+
+
+
+
+
+
+
         //net.sendControlMessage(Net::SendStruct(yaw, pitch, 0, 20.0, 0, 0.0, 0.0, -1, -1));
     }
     return 0;
