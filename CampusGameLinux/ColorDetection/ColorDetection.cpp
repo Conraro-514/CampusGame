@@ -1,19 +1,22 @@
-#include"ColorDetcetion.h"
+#include"ColorDetection.h"
 
 cv::Mat ColorDetcetion(cv::Mat img,bool enemy_color){
 
     std::vector<cv::Mat> channels;
     cv::split(img, channels);
     cv::Mat thresholdImage,mask;
+
+    //灰度图
+    cv::cvtColor(img,img,cv::COLOR_BGR2GRAY);
     
     //2值化
-    cv::adaptiveThreshold(img, img, 127, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 3, 10);
+    cv::adaptiveThreshold(img, img,200, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 3, 10);
     
     //目标颜色判断： true红色 false蓝色    通道相减
-    if(enemy_color()){
+    if(enemy_color){
         thresholdImage=channels.at(2)-channels.at(1);
     }
-    else if(!enemy_color()){
+    else if(!enemy_color){
         thresholdImage=channels.at(0)-channels.at(2);
     }
     
@@ -23,6 +26,6 @@ cv::Mat ColorDetcetion(cv::Mat img,bool enemy_color){
 	cv::Mat element = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3));
 	cv::dilate(mask, mask, element);
 	
-    return mask;
+    imshow(" ",mask);
   
 }

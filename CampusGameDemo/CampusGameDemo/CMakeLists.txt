@@ -44,7 +44,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 aux_source_directory(./src PROJECT_SRCS)
 # ################### My Files
 add_subdirectory(GetContours)
-add_subdirectory(ColorDetcetion)
+add_subdirectory(ColorDetection)
 
 
 
@@ -55,7 +55,7 @@ add_subdirectory(ColorDetcetion)
 
 
 include_directories(./A)
-include_directories(./ColorDetcetion)
+include_directories(./ColorDetection)
 
 
 

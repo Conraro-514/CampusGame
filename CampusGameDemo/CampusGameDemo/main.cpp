@@ -8,7 +8,7 @@
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/ml/ml.hpp>  
 
-#include "ColorDetection/ColorDetcetion.h";
+#include "ColorDetection/ColorDetection.h";
 #include "GetContours/GetContours.h";
 
 bool reg = 0;

@@ -10,6 +10,7 @@
                 "-g",
                 "${file}",
                 "${workspaceFolder}/GetContours/*.cpp",
+                "${workspaceFolder}/ColorDetection/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.out",
                 "`pkg-config","--libs","--cflags","opencv4`"	//这是添加第三方库代码，要添加什么库直接继续加就行，不要忘记了 ` 符号

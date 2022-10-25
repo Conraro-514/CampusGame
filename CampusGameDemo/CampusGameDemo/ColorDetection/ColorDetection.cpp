@@ -1,10 +1,13 @@
-#include"ColorDetcetion.h"
+#include"ColorDetection.h"
 
 cv::Mat ColorDetcetion(cv::Mat img,bool enemy_color){
 
     std::vector<cv::Mat> channels;
     cv::split(img, channels);
     cv::Mat thresholdImage,mask;
+    
+    //灰度化
+    cv::CvtColor(img,img,cv::COLOR_BGR2GRAY);
     
     //2值化
     cv::adaptiveThreshold(img, img, 127, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 3, 10);
