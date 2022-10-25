@@ -1,0 +1,2 @@
+aux_source_directory(. ColorDetcetion)
+add_library(ColorDetcetion ${ColorDetcetion})

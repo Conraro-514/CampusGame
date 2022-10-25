@@ -42,6 +42,27 @@ include_directories(${JSON_INC_PATH})
 FILE(GLOB INCLUDE_FILES "include/*.h")
 include_directories(${PROJECT_SOURCE_DIR}/include)
 aux_source_directory(./src PROJECT_SRCS)
+# ################### My Files
+add_subdirectory(GetContours)
+add_subdirectory(ColorDetcetion)
+
+
+
+
+
+
+
+
+
+include_directories(./A)
+include_directories(./ColorDetcetion)
+
+
+
+
+
+
+
 
 add_executable(CampusGame_demo "main.cpp" ${PROJECT_SRCS})
 target_link_libraries(CampusGame_demo ${OpenCV_LIBS} CampusGame)
