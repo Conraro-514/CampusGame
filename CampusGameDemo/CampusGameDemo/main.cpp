@@ -11,11 +11,12 @@
 #include "ColorDetection/ColorDetection.h"
 //#include "GetContours/GetContours.h"
 
+
 bool reg = 0;
 
 void error_handle(int error_id, std::string message);
 
-Net::NetworkManager net("192.168.1.2", "test", 25562, 25564, error_handle);
+Net::NetworkManager net("127.0.0.1", "test", 25562, 25564, error_handle);
 
 void sigint_handler(int sig) { exit(1); }
 
@@ -38,32 +39,18 @@ int main() {
         img = net.getNewestRecvMessage().img;
         if (!img.empty()) {
 
-            cv::imshow("img", img);
-            cv::waitKey(1);
+  ///////////  My  Code/////////////  
+        cv::Mat img_clone = img.clone();
+        cv::Mat mask=ColorDetection(img_clone);
+        cv::imshow("mask", mask);
+        // cv::waitKey(0);
+        //GetContours(img,mask);
             continue;
         } else {
             std::cout << "Get an empty image" << std::endl;
             cv::waitKey(100);
         }
         
-///////////  My  Code/////////////  
-        cv::Mat img_clone = img.clone();
-        cv::Mat mask=ColorDetection(img_clone,0);
-        cv::imshow("mask", mask);
-        cv::waitKey(0);
-        //GetContours(img,mask);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         //net.sendControlMessage(Net::SendStruct(yaw, pitch, 0, 20.0, 0, 0.0, 0.0, -1, -1));

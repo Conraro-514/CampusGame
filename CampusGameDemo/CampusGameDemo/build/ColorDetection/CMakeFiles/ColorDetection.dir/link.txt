@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../lib/libColorDetection.a CMakeFiles/ColorDetection.dir/ColorDetection.cpp.o
-/usr/bin/ranlib ../lib/libColorDetection.a

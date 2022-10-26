@@ -8,8 +8,6 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/CMakeLists.txt"
-  "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/CMakeLists.txt"
-  "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/GetContours/CMakeLists.txt"
   "CMakeFiles/3.24.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.24.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.24.1/CMakeSystem.cmake"
@@ -138,13 +136,9 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.24.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.24.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "GetContours/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "ColorDetection/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/CampusGame_demo.dir/DependInfo.cmake"
-  "GetContours/CMakeFiles/GetContours.dir/DependInfo.cmake"
-  "ColorDetection/CMakeFiles/ColorDetection.dir/DependInfo.cmake"
   )

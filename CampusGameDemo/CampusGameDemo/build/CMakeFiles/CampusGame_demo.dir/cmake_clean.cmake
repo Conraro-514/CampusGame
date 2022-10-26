@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o"
+  "CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o.d"
   "CMakeFiles/CampusGame_demo.dir/main.cpp.o"
   "CMakeFiles/CampusGame_demo.dir/main.cpp.o.d"
   "CampusGame_demo"

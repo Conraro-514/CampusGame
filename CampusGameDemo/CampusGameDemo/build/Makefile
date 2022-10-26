@@ -129,31 +129,29 @@ CampusGame_demo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/build
 .PHONY : CampusGame_demo/fast
 
-#=============================================================================
-# Target rules for targets named GetContours
+ColorDetection/ColorDetection.o: ColorDetection/ColorDetection.cpp.o
+.PHONY : ColorDetection/ColorDetection.o
 
-# Build rule for target.
-GetContours: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GetContours
-.PHONY : GetContours
+# target to build an object file
+ColorDetection/ColorDetection.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o
+.PHONY : ColorDetection/ColorDetection.cpp.o
 
-# fast build rule for target.
-GetContours/fast:
-	$(MAKE) $(MAKESILENT) -f GetContours/CMakeFiles/GetContours.dir/build.make GetContours/CMakeFiles/GetContours.dir/build
-.PHONY : GetContours/fast
+ColorDetection/ColorDetection.i: ColorDetection/ColorDetection.cpp.i
+.PHONY : ColorDetection/ColorDetection.i
 
-#=============================================================================
-# Target rules for targets named ColorDetection
+# target to preprocess a source file
+ColorDetection/ColorDetection.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.i
+.PHONY : ColorDetection/ColorDetection.cpp.i
 
-# Build rule for target.
-ColorDetection: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection
-.PHONY : ColorDetection
+ColorDetection/ColorDetection.s: ColorDetection/ColorDetection.cpp.s
+.PHONY : ColorDetection/ColorDetection.s
 
-# fast build rule for target.
-ColorDetection/fast:
-	$(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/build
-.PHONY : ColorDetection/fast
+# target to generate assembly for a file
+ColorDetection/ColorDetection.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.s
+.PHONY : ColorDetection/ColorDetection.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -188,8 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CampusGame_demo"
-	@echo "... ColorDetection"
-	@echo "... GetContours"
+	@echo "... ColorDetection/ColorDetection.o"
+	@echo "... ColorDetection/ColorDetection.i"
+	@echo "... ColorDetection/ColorDetection.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp" "CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o" "gcc" "CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o.d"
   "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp" "CMakeFiles/CampusGame_demo.dir/main.cpp.o" "gcc" "CMakeFiles/CampusGame_demo.dir/main.cpp.o.d"
   )
 

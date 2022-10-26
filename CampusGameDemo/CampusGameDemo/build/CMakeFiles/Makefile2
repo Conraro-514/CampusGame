@@ -64,50 +64,15 @@ CMAKE_BINARY_DIR = /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/b
 
 # The main recursive "all" target.
 all: CMakeFiles/CampusGame_demo.dir/all
-all: GetContours/all
-all: ColorDetection/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall: GetContours/preinstall
-preinstall: ColorDetection/preinstall
+preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/CampusGame_demo.dir/clean
-clean: GetContours/clean
-clean: ColorDetection/clean
 .PHONY : clean
-
-#=============================================================================
-# Directory level rules for directory ColorDetection
-
-# Recursive "all" directory target.
-ColorDetection/all: ColorDetection/CMakeFiles/ColorDetection.dir/all
-.PHONY : ColorDetection/all
-
-# Recursive "preinstall" directory target.
-ColorDetection/preinstall:
-.PHONY : ColorDetection/preinstall
-
-# Recursive "clean" directory target.
-ColorDetection/clean: ColorDetection/CMakeFiles/ColorDetection.dir/clean
-.PHONY : ColorDetection/clean
-
-#=============================================================================
-# Directory level rules for directory GetContours
-
-# Recursive "all" directory target.
-GetContours/all: GetContours/CMakeFiles/GetContours.dir/all
-.PHONY : GetContours/all
-
-# Recursive "preinstall" directory target.
-GetContours/preinstall:
-.PHONY : GetContours/preinstall
-
-# Recursive "clean" directory target.
-GetContours/clean: GetContours/CMakeFiles/GetContours.dir/clean
-.PHONY : GetContours/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/CampusGame_demo.dir
@@ -116,12 +81,12 @@ GetContours/clean: GetContours/CMakeFiles/GetContours.dir/clean
 CMakeFiles/CampusGame_demo.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=1,2 "Built target CampusGame_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=1,2,3 "Built target CampusGame_demo"
 .PHONY : CMakeFiles/CampusGame_demo.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/CampusGame_demo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/CampusGame_demo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 0
 .PHONY : CMakeFiles/CampusGame_demo.dir/rule
@@ -134,58 +99,6 @@ CampusGame_demo: CMakeFiles/CampusGame_demo.dir/rule
 CMakeFiles/CampusGame_demo.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/clean
 .PHONY : CMakeFiles/CampusGame_demo.dir/clean
-
-#=============================================================================
-# Target rules for target GetContours/CMakeFiles/GetContours.dir
-
-# All Build rule for target.
-GetContours/CMakeFiles/GetContours.dir/all:
-	$(MAKE) $(MAKESILENT) -f GetContours/CMakeFiles/GetContours.dir/build.make GetContours/CMakeFiles/GetContours.dir/depend
-	$(MAKE) $(MAKESILENT) -f GetContours/CMakeFiles/GetContours.dir/build.make GetContours/CMakeFiles/GetContours.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=5,6 "Built target GetContours"
-.PHONY : GetContours/CMakeFiles/GetContours.dir/all
-
-# Build rule for subdir invocation for target.
-GetContours/CMakeFiles/GetContours.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GetContours/CMakeFiles/GetContours.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 0
-.PHONY : GetContours/CMakeFiles/GetContours.dir/rule
-
-# Convenience name for target.
-GetContours: GetContours/CMakeFiles/GetContours.dir/rule
-.PHONY : GetContours
-
-# clean rule for target.
-GetContours/CMakeFiles/GetContours.dir/clean:
-	$(MAKE) $(MAKESILENT) -f GetContours/CMakeFiles/GetContours.dir/build.make GetContours/CMakeFiles/GetContours.dir/clean
-.PHONY : GetContours/CMakeFiles/GetContours.dir/clean
-
-#=============================================================================
-# Target rules for target ColorDetection/CMakeFiles/ColorDetection.dir
-
-# All Build rule for target.
-ColorDetection/CMakeFiles/ColorDetection.dir/all:
-	$(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/depend
-	$(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=3,4 "Built target ColorDetection"
-.PHONY : ColorDetection/CMakeFiles/ColorDetection.dir/all
-
-# Build rule for subdir invocation for target.
-ColorDetection/CMakeFiles/ColorDetection.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection/CMakeFiles/ColorDetection.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 0
-.PHONY : ColorDetection/CMakeFiles/ColorDetection.dir/rule
-
-# Convenience name for target.
-ColorDetection: ColorDetection/CMakeFiles/ColorDetection.dir/rule
-.PHONY : ColorDetection
-
-# clean rule for target.
-ColorDetection/CMakeFiles/ColorDetection.dir/clean:
-	$(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/clean
-.PHONY : ColorDetection/CMakeFiles/ColorDetection.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
