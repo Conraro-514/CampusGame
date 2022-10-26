@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/ColorDetection//CMakeFiles/progress.marks
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,81 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named CampusGame_demo
+# Convenience name for target.
+ColorDetection/CMakeFiles/ColorDetection.dir/rule:
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection/CMakeFiles/ColorDetection.dir/rule
+.PHONY : ColorDetection/CMakeFiles/ColorDetection.dir/rule
 
-# Build rule for target.
-CampusGame_demo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CampusGame_demo
-.PHONY : CampusGame_demo
-
-# fast build rule for target.
-CampusGame_demo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/build
-.PHONY : CampusGame_demo/fast
-
-#=============================================================================
-# Target rules for targets named GetContours
-
-# Build rule for target.
-GetContours: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GetContours
-.PHONY : GetContours
-
-# fast build rule for target.
-GetContours/fast:
-	$(MAKE) $(MAKESILENT) -f GetContours/CMakeFiles/GetContours.dir/build.make GetContours/CMakeFiles/GetContours.dir/build
-.PHONY : GetContours/fast
-
-#=============================================================================
-# Target rules for targets named ColorDetection
-
-# Build rule for target.
-ColorDetection: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ColorDetection
+# Convenience name for target.
+ColorDetection: ColorDetection/CMakeFiles/ColorDetection.dir/rule
 .PHONY : ColorDetection
 
 # fast build rule for target.
 ColorDetection/fast:
-	$(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/build
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/build
 .PHONY : ColorDetection/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+ColorDetection.o: ColorDetection.cpp.o
+.PHONY : ColorDetection.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/main.cpp.o
-.PHONY : main.cpp.o
+ColorDetection.cpp.o:
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/ColorDetection.cpp.o
+.PHONY : ColorDetection.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+ColorDetection.i: ColorDetection.cpp.i
+.PHONY : ColorDetection.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/main.cpp.i
-.PHONY : main.cpp.i
+ColorDetection.cpp.i:
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/ColorDetection.cpp.i
+.PHONY : ColorDetection.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+ColorDetection.s: ColorDetection.cpp.s
+.PHONY : ColorDetection.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/main.cpp.s
-.PHONY : main.cpp.s
+ColorDetection.cpp.s:
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(MAKE) $(MAKESILENT) -f ColorDetection/CMakeFiles/ColorDetection.dir/build.make ColorDetection/CMakeFiles/ColorDetection.dir/ColorDetection.cpp.s
+.PHONY : ColorDetection.cpp.s
 
 # Help Target
 help:
@@ -187,12 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... CampusGame_demo"
 	@echo "... ColorDetection"
-	@echo "... GetContours"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... ColorDetection.o"
+	@echo "... ColorDetection.i"
+	@echo "... ColorDetection.s"
 .PHONY : help
 
 
@@ -204,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

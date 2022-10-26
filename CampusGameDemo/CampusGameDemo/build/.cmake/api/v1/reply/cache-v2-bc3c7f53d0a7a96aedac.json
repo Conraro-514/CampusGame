@@ -83,7 +83,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build"
+			"value" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/CMakeFiles/pkgRedirects"
+			"value" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -635,7 +635,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo"
+			"value" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -799,7 +799,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "1"
+			"value" : "3"
 		},
 		{
 			"name" : "CMAKE_OBJCOPY",
@@ -1183,7 +1183,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build"
+			"value" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build"
 		},
 		{
 			"name" : "CampusGame_demo_IS_TOP_LEVEL",
@@ -1207,7 +1207,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo"
+			"value" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo"
 		},
 		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Boost",

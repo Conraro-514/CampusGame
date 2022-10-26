@@ -1,3 +1,9 @@
-/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/CMakeFiles/CampusGame_demo.dir
-/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/CMakeFiles/edit_cache.dir
-/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/CMakeFiles/rebuild_cache.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles/CampusGame_demo.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles/edit_cache.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles/rebuild_cache.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/GetContours/CMakeFiles/GetContours.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/GetContours/CMakeFiles/edit_cache.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/GetContours/CMakeFiles/rebuild_cache.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/ColorDetection/CMakeFiles/ColorDetection.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/ColorDetection/CMakeFiles/edit_cache.dir
+/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/ColorDetection/CMakeFiles/rebuild_cache.dir

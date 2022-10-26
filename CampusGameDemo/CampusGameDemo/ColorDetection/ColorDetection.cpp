@@ -1,6 +1,6 @@
 #include"ColorDetection.h"
 
-cv::Mat ColorDetcetion(cv::Mat img,bool enemy_color){
+cv::Mat ColorDetection(cv::Mat img,bool enemy_color){
 
     std::vector<cv::Mat> channels;
     cv::split(img, channels);

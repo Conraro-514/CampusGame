@@ -6,4 +6,4 @@
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/ml/ml.hpp>  
 
-cv::Mat ColorDetcetion(cv::Mat img,bool enemy_color);
+cv::Mat ColorDetection(cv::Mat img,bool enemy_color);

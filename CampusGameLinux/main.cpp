@@ -18,7 +18,7 @@ int main(void){
     while(1){
         cap.read(img); 
         img_clone=img.clone();       
-        ColorDetcetion(img_clone,0);
+        ColorDetection(img_clone,0);
         cv::waitKey(0);   
     }
     

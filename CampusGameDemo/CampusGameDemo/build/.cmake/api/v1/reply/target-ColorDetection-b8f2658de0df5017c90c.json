@@ -1,0 +1,119 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/libColorDetection.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"ColorDetection/CMakeLists.txt",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 2,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 28,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 43,
+				"parent" : 2
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-std=gnu++14"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/ColorDetection"
+				},
+				{
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/usr/local/include/opencv4"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"id" : "ColorDetection::@4f25a2a4bb368770bd7b",
+	"name" : "ColorDetection",
+	"nameOnDisk" : "libColorDetection.a",
+	"paths" : 
+	{
+		"build" : "ColorDetection",
+		"source" : "ColorDetection"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ColorDetection/ColorDetection.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

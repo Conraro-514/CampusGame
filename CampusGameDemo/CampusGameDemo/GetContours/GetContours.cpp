@@ -10,8 +10,10 @@ void GetContours(cv::Mat img,cv::Mat img_clone){
         boundRect[i]=boundingRect(contours[i]);
         int h=boundRect[i].height;
         int w=boundRect[i].width;
-
-
+        
+        if(area<400||h/w<1)continue;
+        
+        `
 
 
 

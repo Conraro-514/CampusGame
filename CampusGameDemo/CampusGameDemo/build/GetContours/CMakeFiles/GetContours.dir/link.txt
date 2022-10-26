@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libGetContours.a CMakeFiles/GetContours.dir/GetContours.cpp.o
+/usr/bin/ranlib ../lib/libGetContours.a

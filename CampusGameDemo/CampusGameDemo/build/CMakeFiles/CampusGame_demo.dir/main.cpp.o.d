@@ -1,5 +1,5 @@
 CMakeFiles/CampusGame_demo.dir/main.cpp.o: \
- /home/momo/Desktop/CampusGameDemo/CampusGameDemo/main.cpp \
+ /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp \
  /usr/include/stdc-predef.h /usr/include/NetworkManager.h \
  /usr/include/UDPClient.h /usr/include/boost/array.hpp \
  /usr/include/boost/detail/workaround.hpp \
@@ -1128,4 +1128,8 @@ CMakeFiles/CampusGame_demo.dir/main.cpp.o: \
  /usr/local/include/opencv4/opencv2/stitching/detail/camera.hpp \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
- /usr/local/include/opencv4/opencv2/video/background_segm.hpp
+ /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
+ /usr/local/include/opencv4/opencv2/core/core.hpp \
+ /usr/local/include/opencv4/opencv2/highgui/highgui.hpp \
+ /usr/local/include/opencv4/opencv2/ml/ml.hpp \
+ /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.h

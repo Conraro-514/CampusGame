@@ -8,8 +8,8 @@
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/ml/ml.hpp>  
 
-#include "ColorDetection/ColorDetection.h";
-#include "GetContours/GetContours.h";
+#include "ColorDetection/ColorDetection.h"
+//#include "GetContours/GetContours.h"
 
 bool reg = 0;
 
@@ -48,8 +48,10 @@ int main() {
         
 ///////////  My  Code/////////////  
         cv::Mat img_clone = img.clone();
-        cv::Mat mask=ColorDetection(img,img_clone);
-        GetContours(img,mask);
+        cv::Mat mask=ColorDetection(img_clone,0);
+        cv::imshow("mask", mask);
+        cv::waitKey(0);
+        //GetContours(img,mask);
 
 
 

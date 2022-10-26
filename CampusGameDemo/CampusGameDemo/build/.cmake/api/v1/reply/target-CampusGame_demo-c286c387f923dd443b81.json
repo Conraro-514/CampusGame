@@ -32,7 +32,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 46,
+				"line" : 67,
 				"parent" : 0
 			},
 			{
@@ -44,7 +44,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 47,
+				"line" : 68,
 				"parent" : 0
 			},
 			{
@@ -82,6 +82,18 @@
 			{
 				"command" : 6,
 				"file" : 0,
+				"line" : 57,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 58,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 0,
 				"line" : 28,
 				"parent" : 0
 			}
@@ -99,17 +111,25 @@
 			"includes" : 
 			[
 				{
-					"path" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build"
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build"
 				},
 				{
-					"path" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo"
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo"
 				},
 				{
 					"backtrace" : 9,
-					"path" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo/include"
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/include"
 				},
 				{
 					"backtrace" : 10,
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/./GetContours"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/./ColorDetection"
+				},
+				{
+					"backtrace" : 12,
 					"isSystem" : true,
 					"path" : "/usr/local/include/opencv4"
 				},
@@ -145,11 +165,11 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/lib",
+				"fragment" : "-L/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/lib",
 				"role" : "libraryPath"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build/lib:/usr/local/lib",
+				"fragment" : "-Wl,-rpath,/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/lib:/usr/local/lib",
 				"role" : "libraries"
 			},
 			{

@@ -814,13 +814,19 @@
 		{
 			"isExternal" : true,
 			"path" : "/usr/lib/cmake/CampusGame/CampusGameTargets-release.cmake"
+		},
+		{
+			"path" : "GetContours/CMakeLists.txt"
+		},
+		{
+			"path" : "ColorDetection/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo/build",
-		"source" : "/home/momo/Desktop/CampusGameDemo/CampusGameDemo"
+		"build" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build",
+		"source" : "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo"
 	},
 	"version" : 
 	{

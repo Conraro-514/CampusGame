@@ -54,7 +54,7 @@ add_subdirectory(ColorDetection)
 
 
 
-include_directories(./A)
+include_directories(./GetContours)
 include_directories(./ColorDetection)
 
 
