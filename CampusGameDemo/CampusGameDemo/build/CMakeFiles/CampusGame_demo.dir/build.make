@@ -73,29 +73,29 @@ CMakeFiles/CampusGame_demo.dir/main.cpp.o: CMakeFiles/CampusGame_demo.dir/flags.
 CMakeFiles/CampusGame_demo.dir/main.cpp.o: /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp
 CMakeFiles/CampusGame_demo.dir/main.cpp.o: CMakeFiles/CampusGame_demo.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CampusGame_demo.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CampusGame_demo.dir/main.cpp.o -MF CMakeFiles/CampusGame_demo.dir/main.cpp.o.d -o CMakeFiles/CampusGame_demo.dir/main.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CampusGame_demo.dir/main.cpp.o -MF CMakeFiles/CampusGame_demo.dir/main.cpp.o.d -o CMakeFiles/CampusGame_demo.dir/main.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp
 
 CMakeFiles/CampusGame_demo.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CampusGame_demo.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp > CMakeFiles/CampusGame_demo.dir/main.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp > CMakeFiles/CampusGame_demo.dir/main.cpp.i
 
 CMakeFiles/CampusGame_demo.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CampusGame_demo.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp -o CMakeFiles/CampusGame_demo.dir/main.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp -o CMakeFiles/CampusGame_demo.dir/main.cpp.s
 
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o: CMakeFiles/CampusGame_demo.dir/flags.make
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o: /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o: CMakeFiles/CampusGame_demo.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o -MF CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o.d -o CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o -MF CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o.d -o CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp
 
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp > CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp > CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.i
 
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp -o CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp -o CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.s
 
 # Object files for target CampusGame_demo
 CampusGame_demo_OBJECTS = \

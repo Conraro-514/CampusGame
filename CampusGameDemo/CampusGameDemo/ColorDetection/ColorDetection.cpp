@@ -10,13 +10,13 @@ cv::Mat ColorDetection(cv::Mat img){
     
     //目标颜色判断： true红色 false蓝色    通道相减
     if(enemy_color){
-        cv::subtract(channels[2],channels[1],img);
+        cv::subtract(channels[2],channels[0],img);
     }else{
-        cv::subtract(channels[0],channels[1],img);
+        cv::subtract(channels[0],channels[2],img);
     }
     
     //灰度化
-    cv::cvtColor(img,img,cv::COLOR_BGR2GRAY);
+    //cv::cvtColor(img,img,cv::COLOR_BGR2GRAY);
     //imshow(" ",img);
     
     //2值化

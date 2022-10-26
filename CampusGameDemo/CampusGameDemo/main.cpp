@@ -43,7 +43,7 @@ int main() {
         cv::Mat img_clone = img.clone();
         cv::Mat mask=ColorDetection(img_clone);
         cv::imshow("mask", mask);
-        // cv::waitKey(0);
+        cv::waitKey(1);
         //GetContours(img,mask);
             continue;
         } else {

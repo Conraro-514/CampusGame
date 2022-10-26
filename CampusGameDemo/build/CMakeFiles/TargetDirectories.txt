@@ -1,3 +1,0 @@
-/home/momo/Desktop/CampusGame/CampusGameDemo/build/CMakeFiles/GetContours.dir
-/home/momo/Desktop/CampusGame/CampusGameDemo/build/CMakeFiles/edit_cache.dir
-/home/momo/Desktop/CampusGame/CampusGameDemo/build/CMakeFiles/rebuild_cache.dir

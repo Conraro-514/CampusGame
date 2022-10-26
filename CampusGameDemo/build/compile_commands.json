@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/momo/Desktop/CampusGame/CampusGameDemo/build",
-  "command": "/usr/bin/c++   -g -o CMakeFiles/GetContours.dir/GetContours.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/GetContours/GetContours.cpp",
-  "file": "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/GetContours/GetContours.cpp"
-}
-]
