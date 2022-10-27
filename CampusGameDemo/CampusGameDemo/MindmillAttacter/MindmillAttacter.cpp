@@ -291,10 +291,10 @@ void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, i
 }
 
 
-void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
+cv::Point2f MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
     //是否开启打大符模式
     bool attack_mode = 1;
-    if(!attack_mode) return;
+    if(!attack_mode) return cv::Point2f(-1,-1);
     cv::Mat img_clone_circle=img_clone.clone();
     cv::Mat mask,mask_circle;
     cv::Scalar lower(113,0,214);
@@ -349,7 +349,8 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
     LeastSquaresCircleFitting(circle_points, c, r);//拟合圆
     cv::circle(img, c, r, cv::Scalar(0, 0, 255), 2, 8);//绘制圆
     cv::circle(img, c, 5, cv::Scalar(0, 255, 255), -1, 8);//绘制圆心  
-     
+
+    cv::Point2f resPoint(0,0); 
     for(int i=0;i<contours.size();i++){
         std::vector<cv::Point> points=contours[i];
         int area=contourArea(points);
@@ -370,19 +371,17 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
         float cosA=rot_mat.at<double>(0,0);//cos(60);
         float xx=-(c.x-box.center.x);
         float yy=-(c.y-box.center.y);
-        cv::Point2f resPoint=cv::Point2f(c.x+cosA*xx-sinA*yy,c.y+sinA*xx+cosA*yy);
+        resPoint=cv::Point2f(c.x+cosA*xx-sinA*yy,c.y+sinA*xx+cosA*yy);
         cv::circle(img,resPoint,1,cv::Scalar(0,255,0),10);
         }
-        double time=400;
+        // double time=400;
         //cv::Point predict_point(0,0);
         //pointPrediction(c,box.center,previous_angle,r,time);
         //cv::circle(img, predict_point, 5, cv::Scalar(0, 0, 255), -1, 8);//绘制圆心
-
         
     }
+    
     cv::imshow("img", img);
     cv::waitKey(1);
-    
-   
-
+    return resPoint;
 }

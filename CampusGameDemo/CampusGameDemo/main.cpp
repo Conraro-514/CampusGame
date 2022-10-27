@@ -46,15 +46,15 @@ int main() {
         cv::Mat img_clone = img.clone();
         // cv::imshow(" ",img);
         // cv::waitKey(1);
-        MindmillAttacter(img_clone,img,previous_angle);
-        // if(!(i%100)){
-        // net.sendControlMessage(Net::SendStruct(yaw+(atkPoint.x/200*13.3), pitch+(atkPoint.x/200*13.3)+2, 1, 20.0, 0, 0.0, 0.0, -1, -1));
-        // }
+        cv::Point2f PointPre=MindmillAttacter(img_clone,img,previous_angle);
+        if(PointPre!=cv::Point2f(-1,-1)){
+        net.sendControlMessage(Net::SendStruct(yaw+(PointPre.x/200*13.3), pitch+(PointPre.x/200*13.3)+2, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        }
         // cv::Mat mask=ColorDetection(img_clone);
         // cv::imshow("mask", mask);
         // cv::waitKey(1);
         //GetContours(img,mask);
-            continue;
+        continue;
         } else {
             std::cout << "Get an empty image" << std::endl;
             cv::waitKey(100);

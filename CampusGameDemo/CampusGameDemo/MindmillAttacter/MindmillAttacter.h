@@ -2,7 +2,7 @@
 #include <opencv2/opencv.hpp>
 #include <time.h>
 
-void MindmillAttacter(cv::Mat img_clone, cv::Mat img,double &previous_angle);
+cv::Point2f MindmillAttacter(cv::Mat img_clone, cv::Mat img,double &previous_angle);
 
 int LeastSquaresCircleFitting(std::vector<cv::Point2d> &m_Points, 
                                 cv::Point2d &Centroid, 
