@@ -64,7 +64,7 @@ int main() {
 
 void error_handle(int error_id, std::string message) {
     if (error_id == 1) {
-        reg = 0;
+        reg = 0; 
     }
     std::cout << "Error: " << error_id << " " << message << std::endl;
  }

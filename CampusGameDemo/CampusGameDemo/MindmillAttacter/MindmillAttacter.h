@@ -8,3 +8,5 @@ int LeastSquaresCircleFitting(std::vector<cv::Point2d> &m_Points,
                                 double &dRadius);//拟合圆函数(三个参数依次为输入点集，
                                                                 //圆心，半径)
 void RemoveSmallRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, int NeihborMode);
+
+void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, int NeihborMode);

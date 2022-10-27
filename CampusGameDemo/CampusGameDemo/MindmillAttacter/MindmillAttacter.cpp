@@ -171,6 +171,114 @@ void RemoveSmallRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode,
 //    std::cout << RemoveCount << " objects removed." << std::endl;
 }
 
+// CheckMode:  0 代表去除黑区域， 1 代表去除白区域; NeihborMode： 0 代表 4 邻域， 1 代表 8 邻域;
+void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, int NeihborMode) {
+    int RemoveCount = 0;       // 记录除去的个数
+    // 记录每个像素点检验状态的标签， 0 代表未检查， 1 代表正在检查， 2 代表检查不合格（需要反转颜色）， 3 代表检查合格或不需检查
+    cv::Mat Pointlabel = cv::Mat::zeros(Src.size(), CV_8UC1);
+
+    if (CheckMode == 1) {
+//        std::cout << "Mode: 去除小区域. ";
+        for (int i = 0; i < Src.rows; ++i) {
+            uchar *iData = Src.ptr<uchar>(i);
+            uchar *iLabel = Pointlabel.ptr<uchar>(i);
+            for (int j = 0; j < Src.cols; ++j) {
+                if (iData[j] < 10) {
+                    iLabel[j] = 3;
+                }
+            }
+        }
+    } else {
+//        std::cout << "Mode: 去除孔洞. ";
+        for (int i = 0; i < Src.rows; ++i) {
+            uchar *iData = Src.ptr<uchar>(i);
+            uchar *iLabel = Pointlabel.ptr<uchar>(i);
+            for (int j = 0; j < Src.cols; ++j) {
+                if (iData[j] > 10) {
+                    iLabel[j] = 3;
+                }
+            }
+        }
+    }
+
+    std::vector<cv::Point2i> NeihborPos;  // 记录邻域点位置
+    NeihborPos.push_back(cv::Point2i(-1, 0));
+    NeihborPos.push_back(cv::Point2i(1, 0));
+    NeihborPos.push_back(cv::Point2i(0, -1));
+    NeihborPos.push_back(cv::Point2i(0, 1));
+    if (NeihborMode == 1) {
+//        std::cout << "Neighbor mode: 8 邻域." << std::endl;
+        NeihborPos.push_back(cv::Point2i(-1, -1));
+        NeihborPos.push_back(cv::Point2i(-1, 1));
+        NeihborPos.push_back(cv::Point2i(1, -1));
+        NeihborPos.push_back(cv::Point2i(1, 1));
+    }
+    // else std::cout << "Neighbor mode: 4 邻域." << std::endl;
+    int NeihborCount = 4 + 4 * NeihborMode;
+    int CurrX = 0, CurrY = 0;
+    // 开始检测
+    for (int i = 0; i < Src.rows; ++i) {
+        uchar *iLabel = Pointlabel.ptr<uchar>(i);
+        for (int j = 0; j < Src.cols; ++j) {
+            if (iLabel[j] == 0) {
+                //********开始该点处的检查**********
+                std::vector<cv::Point2i> GrowBuffer;  // 堆栈，用于存储生长点
+                GrowBuffer.push_back(cv::Point2i(j, i));
+                Pointlabel.at<uchar>(i, j) = 1;
+                int CheckResult = 0;  // 用于判断结果（是否超出大小），0为未超出，1为超出
+
+                for (int z = 0; z < GrowBuffer.size(); z++) {
+
+                    for (int q = 0; q < NeihborCount; q++)  //检查四个邻域点
+                    {
+                        CurrX = GrowBuffer.at(z).x + NeihborPos.at(q).x;
+                        CurrY = GrowBuffer.at(z).y + NeihborPos.at(q).y;
+                        if (CurrX >= 0 && CurrX < Src.cols && CurrY >= 0 && CurrY < Src.rows)  // 防止越界
+                        {
+                            if (Pointlabel.at<uchar>(CurrY, CurrX) == 0) {
+                                GrowBuffer.push_back(cv::Point2i(CurrX, CurrY));  // 邻域点加入buffer
+                                Pointlabel.at<uchar>(CurrY, CurrX) = 1;  // 更新邻域点的检查标签，避免重复检查
+                            }
+                        }
+                    }
+
+                }
+                if (GrowBuffer.size() < AreaLimit) CheckResult = 2;  //判断结果（是否超出限定的大小），1为未超出，2为超出
+                else {
+                    CheckResult = 1;
+                    RemoveCount++;
+                }
+                for (int z = 0; z < GrowBuffer.size(); z++)  //更新Label记录
+                {
+                    CurrX = GrowBuffer.at(z).x;
+                    CurrY = GrowBuffer.at(z).y;
+                    Pointlabel.at<uchar>(CurrY, CurrX) += CheckResult;
+                }
+                //********结束该点处的检查**********
+
+
+            }
+        }
+    }
+
+    CheckMode = 255 * (1 - CheckMode);
+    //开始反转面积过小的区域
+    for (int i = 0; i < Src.rows; ++i) {
+        uchar *iData = Src.ptr<uchar>(i);
+        uchar *iDstData = Dst.ptr<uchar>(i);
+        uchar *iLabel = Pointlabel.ptr<uchar>(i);
+        for (int j = 0; j < Src.cols; ++j) {
+            if (iLabel[j] == 2) {
+                iDstData[j] = CheckMode;
+            } else if (iLabel[j] == 3) {
+                iDstData[j] = iData[j];
+            }
+        }
+    }
+
+//    std::cout << RemoveCount << " objects removed." << std::endl;
+}
+
 
 void MindmillAttacter(cv::Mat img_clone,cv::Mat img){
     //是否开启打大符模式
@@ -181,8 +289,8 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img){
     // cv::Scalar lower(113,0,214);
     // cv::Scalar upper(180,255,255);
     // cv::inRange(img_clone,lower,upper,mask);//识别目标
-    cv::Scalar lower_circle(101,71,80);
-    cv::Scalar upper_circle(176,255,120);
+    cv::Scalar lower_circle(94,0,0);
+    cv::Scalar upper_circle(172,255,112);
     cv::inRange(img_clone_circle,lower_circle,upper_circle,mask_circle);//拟合圆
 
     //泡水
@@ -193,16 +301,14 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img){
     // cv::morphologyEx(mask, mask, cv::MORPH_CLOSE, element2);//闭运算
     // cv::floodFill(mask, cv::Point(0, 0), cv::Scalar(0));//漫水法
     
-	cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element4);//开运算
+    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element4);//开运算
     cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_CLOSE, element3);//闭运算
+    // CheckMode:  0 代表去除黑区域， 1 代表去除白区域; NeihborMode： 0 代表 4 邻域， 1 代表 8 邻域;
+    RemoveBigRegion(mask_circle, mask_circle, 600, 1, 1);
+    RemoveSmallRegion(mask_circle, mask_circle, 200, 1, 1);
     cv::floodFill(mask_circle, cv::Point(0, 0), cv::Scalar(0));//漫水法
-	// cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element1);//开运算
+    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element1);//开运算
     cv::imshow("mask", mask_circle);
-    cv::waitKey(1);
-	// CheckMode:  0 代表去除黑区域， 1 代表去除白区域; NeihborMode： 0 代表 4 邻域， 1 代表 8 邻域;
-	RemoveSmallRegion(mask_circle,mask_circle,200,1,0);
-	
-    cv::imshow("mask",mask_circle);
     cv::waitKey(1);
     
     //找轮廓
@@ -215,17 +321,15 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img){
     std::vector<cv::Point2d> circle_points;//拟合圆数集
 	for(int i = 0; i < contours_circle.size();i++){
         std::vector<cv::Point> points_circle=contours_circle[i];
-        int area_circle=contourArea(points_circle);
-		float peri_circle=arcLength(contours_circle[i],true);//周长   
-        if(area_circle<300||area_circle>500) continue;//通过面积筛选  
-		if(peri_circle<50||peri_circle>200) continue;//通过周长筛选  
-        cv::Point2f rect_circle[4];
+        int area_circle=contourArea(points_circle);   
+        if(area_circle<200||area_circle>600) continue;//通过面积筛选    
+        // cv::Point2f rect_circle[4];
 	    cv::RotatedRect box_circle = cv::minAreaRect(cv::Mat(contours_circle[i]));//获取最小外接矩阵
 	    cv::circle(img, cv::Point(box_circle.center.x, box_circle.center.y), 5, cv::Scalar(0, 255, 255), -3, -1);  //绘制最小外接矩形的中心点
-	    box_circle.points(rect_circle);  //把最小外接矩形四个端点复制给rect数组
-	    for (int j = 0; j < 4; j++){
-		cv::line(img, rect_circle[j], rect_circle[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
-	    }
+	    // box_circle.points(rect_circle);  //把最小外接矩形四个端点复制给rect数组
+	    // for (int j = 0; j < 4; j++){
+		// cv::line(img, rect_circle[j], rect_circle[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
+	    // }
         circle_points.push_back(box_circle.center);//储存最小外接矩形中心点
     }
 	//拟合圆
