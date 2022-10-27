@@ -42,6 +42,8 @@ int main() {
 
   ///////////  My  Code/////////////  
         cv::Mat img_clone = img.clone();
+        // cv::imshow(" ",img);
+        // cv::waitKey(1);
         MindmillAttacter(img_clone,img);
         // cv::Mat mask=ColorDetection(img_clone);
         // cv::imshow("mask", mask);

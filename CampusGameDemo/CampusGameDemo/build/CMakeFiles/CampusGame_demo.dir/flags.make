@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/include -isystem /usr/local/include/opencv4 -isystem /usr/include/jsoncpp
 
-CXX_FLAGS = -std=gnu++14
+CXX_FLAGS = -g -ggdb -std=gnu++14
 
