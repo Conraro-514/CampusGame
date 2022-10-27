@@ -93,9 +93,6 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -ggdb"
-				},
-				{
 					"fragment" : "-std=gnu++14"
 				}
 			],
@@ -144,10 +141,6 @@
 	{
 		"commandFragments" : 
 		[
-			{
-				"fragment" : "-g -ggdb",
-				"role" : "flags"
-			},
 			{
 				"fragment" : "-pthread",
 				"role" : "flags"

@@ -13,4 +13,4 @@ void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, i
 
 cv::Point pointPrediction(cv::Point circle_center_point,
                           cv::Point target_point,
-                          double &previous_angle);
+                          double &previous_angle,double r);
