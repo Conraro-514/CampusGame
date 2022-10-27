@@ -1,29 +1,15 @@
 #include"MindmillAttacter.h"
 
-cv::Point pointPrediction(cv::Point circle_center_point,
+void pointPrediction(cv::Point circle_center_point,
                           cv::Point target_point,
-                          double &previous_angle,double r){
+                          double &previous_angle,double r,double time){
     double target_polar_angle = (180 / 3.14 * atan2((-1 * (target_point.y - circle_center_point.y)), 
                                                           (target_point.x - circle_center_point.x)));
+    std::cout<<target_polar_angle<<std::endl;
     
-    double predict_rad=target_polar_angle-previous_angle;
-    int x1, x2, y1, y2;
-    // 为了减小强制转换的误差
-    x1 = circle_center_point.x * 100;
-    x2 = target_point.x * 100;
-    y1 = circle_center_point.y * 100;
-    y2 = target_point.y * 100;
-    //  预测
-    cv::Point predict_point;
-    predict_point.x = static_cast<int>(
-        (x1 + (x2 - x1) * cos(predict_rad * 3.14 / 180.0) - (y1 - y2) * sin(predict_rad * 3.14 / 180.0)) / 100);
-    predict_point.y = static_cast<int>(
-        (y1 - (x2 - x1) * sin(predict_rad * 3.14 / 180.0) - (y1 - y2) * cos(predict_rad * 3.14 / 180.0)) / 100);
+    std::cout<<cv::getTickCount()<<std::endl;
     
-    previous_angle=target_polar_angle;
-    return predict_point;
 }
-
 
 int LeastSquaresCircleFitting(std::vector<cv::Point2d> &m_Points, 
                               cv::Point2d &Centroid, double &dRadius)//拟合圆函数(三个参数依次为输入点集，圆心，半径)
@@ -378,8 +364,20 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
 	    }
 
         //预测
-        cv::Point predict_point=pointPrediction(c,box.center,previous_angle,r);
-        cv::circle(img, predict_point, 5, cv::Scalar(0, 0, 255), -1, 8);//绘制圆心
+        if(c.x!=0&&c.y!=0){
+        cv::Mat rot_mat=cv::getRotationMatrix2D(c,-30,1);
+        float sinA=rot_mat.at<double>(0,1);//sin(60);
+        float cosA=rot_mat.at<double>(0,0);//cos(60);
+        float xx=-(c.x-box.center.x);
+        float yy=-(c.y-box.center.y);
+        cv::Point2f resPoint=cv::Point2f(c.x+cosA*xx-sinA*yy,c.y+sinA*xx+cosA*yy);
+        cv::circle(img,resPoint,1,cv::Scalar(0,255,0),10);
+        }
+        double time=400;
+        //cv::Point predict_point(0,0);
+        //pointPrediction(c,box.center,previous_angle,r,time);
+        //cv::circle(img, predict_point, 5, cv::Scalar(0, 0, 255), -1, 8);//绘制圆心
+
         
     }
     cv::imshow("img", img);

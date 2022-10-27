@@ -32,7 +32,8 @@ int main() {
     float yaw =0;
     float pitch = 0; 
     double previous_angle = 0;
-    while (true) {
+    while (true){
+        int i = 0;
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
             reg = net.registerUser(0);
@@ -46,6 +47,9 @@ int main() {
         // cv::imshow(" ",img);
         // cv::waitKey(1);
         MindmillAttacter(img_clone,img,previous_angle);
+        // if(!(i%100)){
+        // net.sendControlMessage(Net::SendStruct(yaw+(atkPoint.x/200*13.3), pitch+(atkPoint.x/200*13.3)+2, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        // }
         // cv::Mat mask=ColorDetection(img_clone);
         // cv::imshow("mask", mask);
         // cv::waitKey(1);
@@ -55,10 +59,7 @@ int main() {
             std::cout << "Get an empty image" << std::endl;
             cv::waitKey(100);
         }
-        
-
-
-        //net.sendControlMessage(Net::SendStruct(yaw, pitch, 0, 20.0, 0, 0.0, 0.0, -1, -1));
+        i++;
     }
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <time.h>
 
 void MindmillAttacter(cv::Mat img_clone, cv::Mat img,double &previous_angle);
 
@@ -11,6 +12,6 @@ void RemoveSmallRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode,
 
 void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, int NeihborMode);
 
-cv::Point pointPrediction(cv::Point circle_center_point,
+void pointPrediction(cv::Point circle_center_point,
                           cv::Point target_point,
-                          double &previous_angle,double r);
+                          double &previous_angle,double r,double time);
