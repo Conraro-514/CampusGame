@@ -9,6 +9,7 @@
 #include <opencv2/ml/ml.hpp>  
 
 #include "ColorDetection/ColorDetection.h"
+#include"MindmillAttacter/MindmillAttacter.h"
 //#include "GetContours/GetContours.h"
 
 
@@ -30,6 +31,21 @@ int main() {
     std::cout << "Register success" << std::endl;
     float yaw =0;
     float pitch = 0;
+    
+    
+    int hmin=156,smin=43,vmin=46;
+    int hmax=180,smax=255,vmax=255;
+    cv::Mat HSVmask;
+    cv::namedWindow("Trackbars",(640,200));
+    cv::createTrackbar("Hue Min","Trackbars",&hmin,179);
+    cv::createTrackbar("Hue Max","Trackbars",&hmax,179);
+    cv::createTrackbar("Sat Min ","Trackbars",&smin,255);
+    cv::createTrackbar("Sat Max","Trackbars",&smax,255);
+    cv::createTrackbar("Val Min","Trackbars",&vmin,255);
+    cv::createTrackbar("Val Max","Trackbars",&vmax,255);
+    
+    
+    
     while (true) {
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
@@ -41,9 +57,15 @@ int main() {
 
   ///////////  My  Code/////////////  
         cv::Mat img_clone = img.clone();
-        cv::Mat mask=ColorDetection(img_clone);
-        cv::imshow("mask", mask);
+        //MindmillAttacter(img_clone);
+        cv::Scalar lower(hmin,smin,vmin);
+        cv::Scalar upper(hmax,smax,vmax);
+        cv::inRange(img_clone,lower,upper,HSVmask);
+        cv::imshow("HSVmask",HSVmask);
         cv::waitKey(1);
+        // cv::Mat mask=ColorDetection(img_clone);
+        // cv::imshow("mask", mask);
+        // cv::waitKey(1);
         //GetContours(img,mask);
             continue;
         } else {

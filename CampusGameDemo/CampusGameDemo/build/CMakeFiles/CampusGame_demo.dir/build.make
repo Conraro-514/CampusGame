@@ -83,10 +83,24 @@ CMakeFiles/CampusGame_demo.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CampusGame_demo.dir/main.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp -o CMakeFiles/CampusGame_demo.dir/main.cpp.s
 
+CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o: CMakeFiles/CampusGame_demo.dir/flags.make
+CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o: /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/MindmillAttacter/MindmillAttacter.cpp
+CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o: CMakeFiles/CampusGame_demo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o -MF CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o.d -o CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/MindmillAttacter/MindmillAttacter.cpp
+
+CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/MindmillAttacter/MindmillAttacter.cpp > CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.i
+
+CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/MindmillAttacter/MindmillAttacter.cpp -o CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.s
+
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o: CMakeFiles/CampusGame_demo.dir/flags.make
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o: /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o: CMakeFiles/CampusGame_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o -MF CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o.d -o CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp
 
 CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.i: cmake_force
@@ -100,12 +114,14 @@ CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.s: cmake_force
 # Object files for target CampusGame_demo
 CampusGame_demo_OBJECTS = \
 "CMakeFiles/CampusGame_demo.dir/main.cpp.o" \
+"CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o" \
 "CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o"
 
 # External object files for target CampusGame_demo
 CampusGame_demo_EXTERNAL_OBJECTS =
 
 CampusGame_demo: CMakeFiles/CampusGame_demo.dir/main.cpp.o
+CampusGame_demo: CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o
 CampusGame_demo: CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o
 CampusGame_demo: CMakeFiles/CampusGame_demo.dir/build.make
 CampusGame_demo: /usr/local/lib/libopencv_gapi.so.4.5.5
@@ -126,7 +142,7 @@ CampusGame_demo: /usr/local/lib/libopencv_imgproc.so.4.5.5
 CampusGame_demo: /usr/local/lib/libopencv_core.so.4.5.5
 CampusGame_demo: /usr/lib/x86_64-linux-gnu/libjsoncpp.so.1.7.4
 CampusGame_demo: CMakeFiles/CampusGame_demo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable CampusGame_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable CampusGame_demo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CampusGame_demo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

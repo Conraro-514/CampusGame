@@ -1132,4 +1132,5 @@ CMakeFiles/CampusGame_demo.dir/main.cpp.o: \
  /usr/local/include/opencv4/opencv2/core/core.hpp \
  /usr/local/include/opencv4/opencv2/highgui/highgui.hpp \
  /usr/local/include/opencv4/opencv2/ml/ml.hpp \
- /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.h
+ /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.h \
+ /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/MindmillAttacter/MindmillAttacter.h

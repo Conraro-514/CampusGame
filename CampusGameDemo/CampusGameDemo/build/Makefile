@@ -153,6 +153,30 @@ ColorDetection/ColorDetection.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.s
 .PHONY : ColorDetection/ColorDetection.cpp.s
 
+MindmillAttacter/MindmillAttacter.o: MindmillAttacter/MindmillAttacter.cpp.o
+.PHONY : MindmillAttacter/MindmillAttacter.o
+
+# target to build an object file
+MindmillAttacter/MindmillAttacter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o
+.PHONY : MindmillAttacter/MindmillAttacter.cpp.o
+
+MindmillAttacter/MindmillAttacter.i: MindmillAttacter/MindmillAttacter.cpp.i
+.PHONY : MindmillAttacter/MindmillAttacter.i
+
+# target to preprocess a source file
+MindmillAttacter/MindmillAttacter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.i
+.PHONY : MindmillAttacter/MindmillAttacter.cpp.i
+
+MindmillAttacter/MindmillAttacter.s: MindmillAttacter/MindmillAttacter.cpp.s
+.PHONY : MindmillAttacter/MindmillAttacter.s
+
+# target to generate assembly for a file
+MindmillAttacter/MindmillAttacter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CampusGame_demo.dir/build.make CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.s
+.PHONY : MindmillAttacter/MindmillAttacter.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -189,6 +213,9 @@ help:
 	@echo "... ColorDetection/ColorDetection.o"
 	@echo "... ColorDetection/ColorDetection.i"
 	@echo "... ColorDetection/ColorDetection.s"
+	@echo "... MindmillAttacter/MindmillAttacter.o"
+	@echo "... MindmillAttacter/MindmillAttacter.i"
+	@echo "... MindmillAttacter/MindmillAttacter.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
