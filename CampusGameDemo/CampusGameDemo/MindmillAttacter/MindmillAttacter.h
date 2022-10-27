@@ -2,3 +2,8 @@
 #include <opencv2/opencv.hpp>
 
 void MindmillAttacter(cv::Mat img_clone, cv::Mat img);
+
+int LeastSquaresCircleFitting(std::vector<cv::Point2d> &m_Points, 
+                                cv::Point2d &Centroid, 
+                                double &dRadius);//拟合圆函数(三个参数依次为输入点集，
+                                                                //圆心，半径)
