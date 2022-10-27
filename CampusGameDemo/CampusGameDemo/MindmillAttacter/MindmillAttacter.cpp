@@ -68,57 +68,75 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img){
     //是否开启打大符模式
     bool attack_mode = 1;
     if(!attack_mode) return;
+    cv::Mat img_clone_circle=img_clone.clone();
     cv::Mat mask,mask_circle;
-    cv::Scalar lower(113,0,214);
-    cv::Scalar upper(180,255,255);
-    cv::inRange(img_clone,lower,upper,mask);//识别目标
-    cv::Scalar lower_circle(113,0,214);
-    cv::Scalar upper_circle(180,255,255);
-    cv::inRange(img_clone,lower,upper,mask_circle);//拟合圆
-    //cv::imshow("mask",mask);
-    //cv::waitKey(1);
+    // cv::Scalar lower(113,0,214);
+    // cv::Scalar upper(180,255,255);
+    // cv::inRange(img_clone,lower,upper,mask);//识别目标
+    cv::Scalar lower_circle(101,71,80);
+    cv::Scalar upper_circle(176,255,120);
+    cv::inRange(img_clone_circle,lower_circle,upper_circle,mask_circle);//拟合圆
 
     //泡水
     cv::Mat element1 = getStructuringElement(cv::MORPH_RECT, cv::Size(7, 7));//设置内核1
     cv::Mat element2 = getStructuringElement(cv::MORPH_RECT, cv::Size(25, 25));//设置内核2
-    cv::morphologyEx(mask, mask, cv::MORPH_CLOSE, element2);//闭运算
-    cv::floodFill(mask, cv::Point(0, 0), cv::Scalar(0));//漫水法
+    cv::Mat element3 = getStructuringElement(cv::MORPH_RECT, cv::Size(15, 15));//设置内核2
+    cv::Mat element4 = getStructuringElement(cv::MORPH_RECT, cv::Size(1, 1));
+    // cv::morphologyEx(mask, mask, cv::MORPH_CLOSE, element2);//闭运算
+    // cv::floodFill(mask, cv::Point(0, 0), cv::Scalar(0));//漫水法
+    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element4);//开运算
+    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_CLOSE, element3);//闭运算
+    cv::floodFill(mask_circle, cv::Point(0, 0), cv::Scalar(0));//漫水法
+	// cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element1);//开运算
+    cv::imshow("mask", mask_circle);
+    cv::waitKey(1);
+    
+    //找轮廓
+    // std::vector<std::vector<cv::Point>> contours;
+    std::vector<std::vector<cv::Point>> contours_circle;
+    // std::vector<cv::Vec4i> hierarchy;
+    std::vector<cv::Vec4i> hierarchy_circle;
+    // cv::findContours(mask, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);//找轮廓
+    cv::findContours(mask_circle, contours_circle, hierarchy_circle, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);//找拟合圆矩形轮廓
+    std::vector<cv::Point2d> circle_points;//拟合圆数集
+	for(int i = 0; i < contours_circle.size();i++){
+        std::vector<cv::Point> points_circle=contours_circle[i];
+        int area_circle=contourArea(points_circle);   
+        if(area_circle<300||area_circle>800) continue;//通过面积筛选    
+        // cv::Point2f rect_circle[4];
+	    cv::RotatedRect box_circle = cv::minAreaRect(cv::Mat(contours_circle[i]));//获取最小外接矩阵
+	    cv::circle(img, cv::Point(box_circle.center.x, box_circle.center.y), 5, cv::Scalar(0, 255, 255), -3, -1);  //绘制最小外接矩形的中心点
+	    // box_circle.points(rect_circle);  //把最小外接矩形四个端点复制给rect数组
+	    // for (int j = 0; j < 4; j++){
+		// cv::line(img, rect_circle[j], rect_circle[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
+	    // }
+        circle_points.push_back(box_circle.center);//储存最小外接矩形中心点
+    }
+	//拟合圆
+	cv::Point2d c;//圆心
+    double r = 0;//半径
+    LeastSquaresCircleFitting(circle_points, c, r);//拟合圆
+    cv::circle(img, c, r, cv::Scalar(0, 0, 255), 2, 8);//绘制圆
+    cv::circle(img, c, 5, cv::Scalar(0, 255, 255), -1, 8);//绘制圆心  
+      
     
 
-    //找轮廓
-    std::vector<std::vector<cv::Point>> contours;
-    std::vector<cv::Vec4i> hierarchy;
-    cv::findContours(mask, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);//找轮廓
+    // for(int i=0;i<contours.size();i++){
+    //     std::vector<cv::Point> points=contours[i];
+    //     int area=contourArea(points);
+        
+    //     if(area<200) continue;//通过面积和长宽筛选
+    //     cv::Point2f rect[4];
+	//     cv::RotatedRect box = cv::minAreaRect(cv::Mat(contours[i]));//获取最小外接矩阵
+	//     cv::circle(img, cv::Point(box.center.x, box.center.y), 5, cv::Scalar(0, 255, 255), -3, -1);  //绘制最小外接矩形的中心点
+	//     box.points(rect);  //把最小外接矩形四个端点复制给rect数组
+	//     for (int j = 0; j < 4; j++){
+	// 	cv::line(img, rect[j], rect[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
+	//     }
+    // }
+    cv::imshow("img", img);
+    cv::waitKey(1);
     
-    for(int i=0;i<contours.size();i++){
-        std::vector<cv::Point> points=contours[i];
-        int area=contourArea(points);
-        
-        if(area<200) continue;//通过面积和长宽筛选
-        cv::Point2f rect[4];
-	    cv::RotatedRect box = cv::minAreaRect(cv::Mat(contours[i]));//获取最小外接矩阵
-	    cv::circle(img, cv::Point(box.center.x, box.center.y), 5, cv::Scalar(0, 255, 255), -3, -1);  //绘制最小外接矩形的中心点
-	    box.points(rect);  //把最小外接矩形四个端点复制给rect数组
-	    for (int j = 0; j < 4; j++){
-		cv::line(img, rect[j], rect[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
-	    }
-        
-    
-        
-        
-        
-        std::vector<cv::Point2d> circle_points;
-        circle_points.push_back(box.center);//储存最小外接矩形中心点
-        cv::Point2d c;//圆心
-        double r = 0;//半径
-        LeastSquaresCircleFitting(circle_points, c, r);//拟合圆
-        cv::circle(img, c, r, cv::Scalar(0, 0, 255), 2, 8);//绘制圆
-        cv::circle(img, c, 5, cv::Scalar(255, 0, 0), -1, 8);//绘制圆心
-    
-        
-        
-        cv::imshow("img",img);
-        cv::waitKey(1);
-    }
+   
 
 }
