@@ -1,7 +1,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-void MindmillAttacter(cv::Mat img_clone, cv::Mat img);
+void MindmillAttacter(cv::Mat img_clone, cv::Mat img,double &previous_angle);
 
 int LeastSquaresCircleFitting(std::vector<cv::Point2d> &m_Points, 
                                 cv::Point2d &Centroid, 
@@ -10,3 +10,7 @@ int LeastSquaresCircleFitting(std::vector<cv::Point2d> &m_Points,
 void RemoveSmallRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, int NeihborMode);
 
 void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, int NeihborMode);
+
+cv::Point pointPrediction(cv::Point circle_center_point,
+                          cv::Point target_point,
+                          double &previous_angle);

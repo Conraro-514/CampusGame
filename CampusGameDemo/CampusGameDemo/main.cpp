@@ -31,6 +31,7 @@ int main() {
     std::cout << "Register success" << std::endl;
     float yaw =0;
     float pitch = 0; 
+    double previous_angle = 0;
     while (true) {
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
@@ -44,7 +45,7 @@ int main() {
         cv::Mat img_clone = img.clone();
         // cv::imshow(" ",img);
         // cv::waitKey(1);
-        MindmillAttacter(img_clone,img);
+        MindmillAttacter(img_clone,img,previous_angle);
         // cv::Mat mask=ColorDetection(img_clone);
         // cv::imshow("mask", mask);
         // cv::waitKey(1);
