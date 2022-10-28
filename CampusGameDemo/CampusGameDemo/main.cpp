@@ -47,10 +47,27 @@ int main() {
         // cv::imshow(" ",img);
         // cv::waitKey(1);
         cv::Point2f PointPre=MindmillAttacter(img_clone,img,previous_angle);
-        if(PointPre!=cv::Point2f(-1,-1)){
-        net.sendControlMessage(Net::SendStruct(yaw+(PointPre.x/200*13.3), pitch+(PointPre.x/200*13.3)+2, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+
+        //像素坐标和欧拉角转换
+        double fx=941.608;
+        double fy=943.231;
+        double thetaX=atan((PointPre.x-img.cols/2)/(7/fx));
+        double thetaY=atan((PointPre.y-img.rows/2)/(7/fx));
+        // std::cout<<PointPre.x<<" "<<PointPre.y<<std::endl;
+        // std::cout << img.cols<<" "<< img.rows<<std::endl;
+        // std::cout << thetaX<<" "<< thetaY<<std::endl;
+        
+        if(PointPre!=cv::Point2f(-1,-1)&&
+           PointPre.x!=0&&
+           PointPre.y!=0&&
+           !i%300){
+        std::cout<<PointPre.x<<" "<<PointPre.y<<std::endl;
+        std::cout << thetaX<<" "<< thetaY<<std::endl;
+        std::cout << img.cols<<" "<< img.rows<<std::endl;
+        net.sendControlMessage(Net::SendStruct(yaw+thetaX, pitch-thetaY, 1, 20.0, 0, 0.0, 0.0, -1, -1));
         }
-        // cv::Mat mask=ColorDetection(img_clone);
+        // cv::Mat mask=ColorDetection(img_clone);s
+
         // cv::imshow("mask", mask);
         // cv::waitKey(1);
         //GetContours(img,mask);

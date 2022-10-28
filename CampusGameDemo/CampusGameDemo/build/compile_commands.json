@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build",
+  "command": "/usr/bin/g++  -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/include -isystem /usr/local/include/opencv4 -isystem /usr/include/jsoncpp -g -ggdb -std=gnu++14 -o CMakeFiles/CampusGame_demo.dir/main.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp",
+  "file": "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/main.cpp"
+},
+{
+  "directory": "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build",
+  "command": "/usr/bin/g++  -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/include -isystem /usr/local/include/opencv4 -isystem /usr/include/jsoncpp -g -ggdb -std=gnu++14 -o CMakeFiles/CampusGame_demo.dir/MindmillAttacter/MindmillAttacter.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/MindmillAttacter/MindmillAttacter.cpp",
+  "file": "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/MindmillAttacter/MindmillAttacter.cpp"
+},
+{
+  "directory": "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build",
+  "command": "/usr/bin/g++  -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/build -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo -I/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/include -isystem /usr/local/include/opencv4 -isystem /usr/include/jsoncpp -g -ggdb -std=gnu++14 -o CMakeFiles/CampusGame_demo.dir/ColorDetection/ColorDetection.cpp.o -c /home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp",
+  "file": "/home/momo/Desktop/CampusGame/CampusGameDemo/CampusGameDemo/ColorDetection/ColorDetection.cpp"
+}
+]

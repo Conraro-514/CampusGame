@@ -28,7 +28,8 @@
             "preLaunchTask": "C/C++: g++ build active file",		//要和 task.json的label字段一致
             "miDebuggerPath": "/usr/bin/gdb",
             //下面这行命令可以去除Vscode中编译后出现 [1]+   Done....  的提示
-            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /usr/bin/gdb -q --interpreter=mi"
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /bin/gdb -q --interpreter=mi",
+
         }
     ],
     "version": "2.0.0"

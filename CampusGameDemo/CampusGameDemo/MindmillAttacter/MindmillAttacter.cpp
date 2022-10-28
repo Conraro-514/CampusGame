@@ -366,7 +366,7 @@ cv::Point2f MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angl
 
         //预测
         if(c.x!=0&&c.y!=0){
-        cv::Mat rot_mat=cv::getRotationMatrix2D(c,-30,1);
+        cv::Mat rot_mat=cv::getRotationMatrix2D(c,-36,1);
         float sinA=rot_mat.at<double>(0,1);//sin(60);
         float cosA=rot_mat.at<double>(0,0);//cos(60);
         float xx=-(c.x-box.center.x);
