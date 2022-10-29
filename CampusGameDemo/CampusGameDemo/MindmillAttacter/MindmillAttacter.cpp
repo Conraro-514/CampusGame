@@ -293,34 +293,40 @@ void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, i
 
 cv::Point2f MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
     //是否开启打大符模式
-    bool attack_mode = 1;
+    bool attack_mode = 0;
     if(!attack_mode) return cv::Point2f(-1,-1);
     cv::Mat img_clone_circle=img_clone.clone();
     cv::Mat mask,mask_circle;
     cv::Scalar lower(113,0,214);
     cv::Scalar upper(180,255,255);
     cv::inRange(img_clone,lower,upper,mask);//识别目标
-    cv::Scalar lower_circle(94,0,0);
-    cv::Scalar upper_circle(172,255,112);
+    cv::Scalar lower_circle(111,67,0);
+    cv::Scalar upper_circle(179,230,255);
     cv::inRange(img_clone_circle,lower_circle,upper_circle,mask_circle);//拟合圆
 
     //泡水
     cv::Mat element1 = getStructuringElement(cv::MORPH_RECT, cv::Size(7, 7));//设置内核1
     cv::Mat element2 = getStructuringElement(cv::MORPH_RECT, cv::Size(25, 25));//设置内核2
     cv::Mat element3 = getStructuringElement(cv::MORPH_RECT, cv::Size(15, 15));//设置内核2
-    cv::Mat element4 = getStructuringElement(cv::MORPH_RECT, cv::Size(1, 1));
+    cv::Mat element4 = getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
     cv::morphologyEx(mask, mask, cv::MORPH_CLOSE, element2);//闭运算
     cv::floodFill(mask, cv::Point(0, 0), cv::Scalar(0));//漫水法
     
-    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element4);//开运算
+    
     cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_CLOSE, element3);//闭运算
-    // CheckMode:  0 代表去除黑区域， 1 代表去除白区域; NeihborMode： 0 代表 4 邻域， 1 代表 8 邻域;
-    RemoveBigRegion(mask_circle, mask_circle, 600, 1, 1);
-    RemoveSmallRegion(mask_circle, mask_circle, 200, 1, 1);
+    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element4);//开运算
     cv::floodFill(mask_circle, cv::Point(0, 0), cv::Scalar(0));//漫水法
-    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element1);//开运算
     cv::imshow("mask", mask_circle);
     cv::waitKey(1);
+    RemoveSmallRegion(mask_circle, mask_circle, 200, 1, 1);
+    // CheckMode:  0 代表去除黑区域， 1 代表去除白区域; NeihborMode： 0 代表 4 邻域， 1 代表 8 邻域;
+    RemoveBigRegion(mask_circle, mask_circle, 800, 1, 1);
+    
+    
+    
+    
+    //cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element1);//开运算
+    
     
     //找轮廓
     std::vector<std::vector<cv::Point>> contours;

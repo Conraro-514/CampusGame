@@ -3,4 +3,6 @@
 #include <opencv2/opencv.hpp>    
 #include <iostream> 
 
-cv::Mat ColorDetection(cv::Mat img);
+void ColorDetection(cv::Mat img_clone,cv::Mat img);
+
+double getDistance (cv::Point2f pointO,cv::Point2f pointA );

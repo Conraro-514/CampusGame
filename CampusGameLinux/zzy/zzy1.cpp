@@ -109,8 +109,8 @@ int main()
             for (j = 0;j < pattern_size.width;j++)
             {
                 cv::Point3f singleRealPoint;//一个角点的坐标
-                singleRealPoint.x = i * 10;
-                singleRealPoint.y = j * 10;
+                singleRealPoint.x = i * 1;
+                singleRealPoint.y = j * 1;
                 singleRealPoint.z = 0;//假设z=0
                 tempCornerPoints.push_back(singleRealPoint);
             }
