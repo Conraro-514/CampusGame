@@ -35,36 +35,48 @@ void ColorDetection(cv::Mat img_clone, cv::Mat img){
     
     //框选矩形
     std::vector<std::vector<cv::Point>> contours;
+    std::vector<std::vector<cv::Point>> lightInfos;
     std::vector<cv::Vec4i> hierarchy;
     cv::findContours(img_clone, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);//找轮廓
     vector<Rect> boundRect(contours.size());
-    for(int i=0;i<contours.size()-1;i++){
-        std::vector<cv::Point> points=contours[i];
-        int area=contourArea(points);
-        boundRect[i]=boundingRect(points);
+    for(int i=0;i<contours.size();i++){
+        int area=contourArea(contours[i]);
+        boundRect[i]=boundingRect(contours[i]);
         int h=boundRect[i].height;
         int w=boundRect[i].width;
-        if(area<200) continue;
+        if(area<500) continue;
         cv::Point2f rect[4];
 	    cv::RotatedRect box = cv::minAreaRect(cv::Mat(contours[i]));//获取最小外接矩阵
 	    // cv::circle(img, cv::Point(box.center.x, box.center.y), 5, cv::Scalar(0, 255, 255), -3, -1);  //绘制最小外接矩形的中心点
+        if(abs(box.size.height/box.size.width-1)>0.3) continue;
 	    box.points(rect);  //把最小外接矩形四个端点复制给rect数组
-	    for (int j = 0; j < 4; j++){
-		cv::line(img, rect[j], rect[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
-	    }
-        for(int j=1;j<contours.size();j++){
-            std::vector<Point> points1;
-            points1 = contours[j]; 
-            cv::RotatedRect box1 = cv::minAreaRect(cv::Mat(contours[j]));
-            if(abs(box.size.width-box1.size.width)<0.2&&
-               abs(box.size.height-box1.size.height)<0.2&&
-               abs(getDistance(box.center, box1.center)-box.size.width*3*1.414)<0.2&&
-               box.center.x<box1.center.x){
-                 cv::Point center=(box1.center+box.center)/2;
-                 circle(img,center,5,Scalar(0,0,255),2);
-               }
+	    // for (int j = 0; j < 4; j++){
+		// cv::line(img, rect[j], rect[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
+	    // }
+        lightInfos.push_back(contours[i]);//符合条件的存起来
     }
-
+    
+    for(int i=0;i<lightInfos.size();i++){
+            for(int j=0;j<lightInfos.size();j++){
+            cv::RotatedRect boxL = cv::minAreaRect(cv::Mat(lightInfos[i]));
+            cv::RotatedRect boxR = cv::minAreaRect(cv::Mat(lightInfos[j]));
+            double meanLength=(boxL.size.width+boxR.size.width)/2;
+            if( //确保两方块在同一矩形上
+                abs(boxL.size.width-boxR.size.width)<9&&
+                abs(boxL.size.height-boxR.size.height)<9&&
+                abs(boxL.angle-boxR.angle)<1&&
+                meanLength*1.2<abs(getDistance(boxL.center,boxR.center))<meanLength*5&&
+                //匹配左上和右下            
+                abs(boxL.center.x-boxR.center.x)>meanLength&&
+                abs(boxL.center.y-boxR.center.y)>meanLength){
+                //cv::line(img, boxL.center, boxR.center, cv::Scalar(0, 255, 0), 2, 8);
+                    cv::Point2f center=(boxL.center+boxR.center)/2;
+                    circle(img,center,5,Scalar(0,255,255),2);
+        	                  
+                }
+                        
+               }    
+    }
     
     
     
