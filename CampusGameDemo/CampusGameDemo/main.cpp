@@ -9,7 +9,7 @@
 #include <opencv2/ml/ml.hpp>  
 
 #include "ColorDetection/ColorDetection.h"
-#include"MindmillAttacter/MindmillAttacter.h"
+#include "MindmillAttacter/MindmillAttacter.h"
 //#include "GetContours/GetContours.h"
 
 
@@ -20,6 +20,12 @@ void error_handle(int error_id, std::string message);
 Net::NetworkManager net("127.0.0.1", "test", 25562, 25564, error_handle);
 
 void sigint_handler(int sig) { exit(1); }
+
+double change(double a)
+{
+	if(a>70)return a-360;
+	else return a;
+}
 
 int main() {
     signal(SIGINT, sigint_handler);
@@ -32,8 +38,16 @@ int main() {
     float yaw =0;
     float pitch = 0; 
     double previous_angle = 0;
+    cv::Point collimation=cv::Point(320,240);
+    int i = 0;
     while (true){
-        int i = 0;
+        
+        int a = net.getNewestRecvMessage().yaw;
+		int b = net.getNewestRecvMessage().pitch;
+		b = change(b);
+        // if(a >=330) net.sendControlMessage(Net::SendStruct(29,-10,0,-1, 0, 0, 0, -1, -1));
+        
+        
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
             reg = net.registerUser(0);
@@ -44,11 +58,55 @@ int main() {
 
   ///////////  My  Code/////////////  
         cv::Mat img_clone = img.clone();
-        
+        // cv::imshow(" ",img_clone);
+        // cv::waitKey(1);
         //cv::Point2f PointPre=MindmillAttacter(img_clone,img,previous_angle);
-        ColorDetection(img_clone,img);
+        pitch=10;
+        //打靶
+        i++;
+        cv::Point pnt=ColorDetection(img_clone,img);
         
-
+        
+        
+        if(!pnt.x==0&&!pnt.y==0){
+        // std::cout<<pnt.x<<" "<<pnt.y<<std::endl;
+        // yaw+=(pnt.x-collimation.x)/200*13.4;
+        // pitch+=(pnt.y-collimation.y)/200*13.4;
+        
+        // if(pnt.x<collimation.x) yaw--;
+        // else if(pnt.y<collimation.y) pitch--;
+        // else if(pnt.y>collimation.y) pitch++;
+        // else if(pnt.x>collimation.x) yaw++;
+        float p1 = fabs((pnt.y - 240)*(13.5/200));
+		float y1 = fabs((pnt.x - 320)*(13.5/200));
+        
+        // net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        if(pnt.x>320&&pnt.y>240){
+			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1-5,1,-1, 0, 0, 0, -1, -1));
+			}
+		else if(pnt.x<320&&pnt.y<240) {
+				net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1,b-p1-5,1,-1, 0, 0, 0, -1, -1));
+			}
+		else if(pnt.x>320&&pnt.y<240){
+				net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1,b-p1-5,1,-1, 0, 0, 0, -1, -1));
+			} 
+		else{
+				net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1,b+p1-5,1,-1, 0, 0, 0, -1, -1));
+			}
+        }
+        else yaw+=1;
+        
+        
+        
+        
+        
+        
+        
+        
         //大符
         //像素坐标和欧拉角转换
         // double fx=941.608;

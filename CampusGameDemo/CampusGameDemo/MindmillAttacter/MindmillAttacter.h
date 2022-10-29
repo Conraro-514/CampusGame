@@ -1,6 +1,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <time.h>
+#include <NetworkManager.h>
 
 cv::Point2f MindmillAttacter(cv::Mat img_clone, cv::Mat img,double &previous_angle);
 

@@ -10,7 +10,7 @@ double getDistance (cv::Point2f pointO,cv::Point2f pointA )
     return distance;  
 }  
 
-void ColorDetection(cv::Mat img_clone, cv::Mat img){
+cv::Point ColorDetection(cv::Mat img_clone, cv::Mat img){
 
     vector<Mat> channels;
     split(img_clone, channels);
@@ -56,6 +56,8 @@ void ColorDetection(cv::Mat img_clone, cv::Mat img){
         lightInfos.push_back(contours[i]);//符合条件的存起来
     }
     
+    cv::Point circleYes;
+
     for(int i=0;i<lightInfos.size();i++){
             for(int j=0;j<lightInfos.size();j++){
             cv::RotatedRect boxL = cv::minAreaRect(cv::Mat(lightInfos[i]));
@@ -71,18 +73,14 @@ void ColorDetection(cv::Mat img_clone, cv::Mat img){
                 abs(boxL.center.y-boxR.center.y)>meanLength){
                 //cv::line(img, boxL.center, boxR.center, cv::Scalar(0, 255, 0), 2, 8);
                     cv::Point2f center=(boxL.center+boxR.center)/2;
-                    circle(img,center,5,Scalar(0,255,255),2);
-        	                  
-                }
-                        
+                    //circle(img,center,5,Scalar(0,255,255),2);
+                    circleYes.x=center.x; 
+                    circleYes.y=center.y;               
+                }             
                }    
     }
-    
-    
-    
-    
-    
+ 
     cv::imshow("img", img);
     cv::waitKey(1);
-  
+    return circleYes;
 }

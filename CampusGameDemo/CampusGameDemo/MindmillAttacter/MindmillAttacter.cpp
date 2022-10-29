@@ -372,7 +372,7 @@ cv::Point2f MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angl
 
         //预测
         if(c.x!=0&&c.y!=0){
-        cv::Mat rot_mat=cv::getRotationMatrix2D(c,-36,1);
+        cv::Mat rot_mat=cv::getRotationMatrix2D(c,-90,1);
         float sinA=rot_mat.at<double>(0,1);//sin(60);
         float cosA=rot_mat.at<double>(0,0);//cos(60);
         float xx=-(c.x-box.center.x);
@@ -386,8 +386,25 @@ cv::Point2f MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angl
         //cv::circle(img, predict_point, 5, cv::Scalar(0, 0, 255), -1, 8);//绘制圆心
         
     }
-    
+    //大符
+        //像素坐标和欧拉角转换
+        // double fx=941.608;
+        // double fy=943.231;
+        // double thetaX=atan((PointPre.x-img.cols/2)/(7/fx));
+        // double thetaY=atan((PointPre.y-img.rows/2)/(7/fx));
+        // std::cout<<PointPre.x<<" "<<PointPre.y<<std::endl;
+        // std::cout << img.cols<<" "<< img.rows<<std::endl;
+        // std::cout << thetaX<<" "<< thetaY<<std::endl;
+        
+        // if(PointPre!=cv::Point2f(-1,-1)&&
+        //    PointPre.x!=0&&
+        //    PointPre.y!=0&&
+        //    !i%300){
+        // std::cout<<PointPre.x<<" "<<PointPre.y<<std::endl;
+        // std::cout << thetaX<<" "<< thetaY<<std::endl;
+        // std::cout << img.cols<<" "<< img.rows<<std::endl;
+        // net.sendControlMessage(Net::SendStruct(yaw+thetaX, pitch-thetaY, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        // }
     cv::imshow("img", img);
     cv::waitKey(1);
-    return resPoint;
 }
