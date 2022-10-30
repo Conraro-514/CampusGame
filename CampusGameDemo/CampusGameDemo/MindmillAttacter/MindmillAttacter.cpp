@@ -291,17 +291,17 @@ void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, i
 }
 
 
-cv::Point2f MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
+void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
     //是否开启打大符模式
     bool attack_mode = 0;
-    if(!attack_mode) return cv::Point2f(-1,-1);
+    if(!attack_mode) return ;
     cv::Mat img_clone_circle=img_clone.clone();
     cv::Mat mask,mask_circle;
     cv::Scalar lower(113,0,214);
     cv::Scalar upper(180,255,255);
     cv::inRange(img_clone,lower,upper,mask);//识别目标
-    cv::Scalar lower_circle(111,67,0);
-    cv::Scalar upper_circle(179,230,255);
+    cv::Scalar lower_circle(94,0,0);
+    cv::Scalar upper_circle(172,255,112);
     cv::inRange(img_clone_circle,lower_circle,upper_circle,mask_circle);//拟合圆
 
     //泡水

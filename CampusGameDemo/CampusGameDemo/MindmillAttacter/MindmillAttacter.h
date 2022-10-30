@@ -3,7 +3,7 @@
 #include <time.h>
 #include <NetworkManager.h>
 
-cv::Point2f MindmillAttacter(cv::Mat img_clone, cv::Mat img,double &previous_angle);
+void MindmillAttacter(cv::Mat img_clone, cv::Mat img,double &previous_angle);
 
 int LeastSquaresCircleFitting(std::vector<cv::Point2d> &m_Points, 
                                 cv::Point2d &Centroid, 

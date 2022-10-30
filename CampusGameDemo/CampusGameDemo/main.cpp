@@ -45,8 +45,8 @@ int main() {
         int a = net.getNewestRecvMessage().yaw;
 		int b = net.getNewestRecvMessage().pitch;
 		b = change(b);
-        // if(a >=330) net.sendControlMessage(Net::SendStruct(29,-10,0,-1, 0, 0, 0, -1, -1));
-        
+        // if(a >=330) net.sendControlMessage(Net::SendStruct(30,-10,0,-1, 0, 0, 0, -1, -1));
+        if (a>=330||a<=45) a=180;
         
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
@@ -60,12 +60,16 @@ int main() {
         cv::Mat img_clone = img.clone();
         // cv::imshow(" ",img_clone);
         // cv::waitKey(1);
-        //cv::Point2f PointPre=MindmillAttacter(img_clone,img,previous_angle);
-        pitch=10;
+        MindmillAttacter(img_clone,img,previous_angle);
+        
         //打靶
         i++;
         cv::Point pnt=ColorDetection(img_clone,img);
         
+        if(pnt.x==320&&pnt.y==240&&!i%10){
+            a+=30;
+            b=-7;
+        }
         
         
         if(!pnt.x==0&&!pnt.y==0){
@@ -77,30 +81,34 @@ int main() {
         // else if(pnt.y<collimation.y) pitch--;
         // else if(pnt.y>collimation.y) pitch++;
         // else if(pnt.x>collimation.x) yaw++;
+        
+        
+        
         float p1 = fabs((pnt.y - 240)*(13.5/200));
 		float y1 = fabs((pnt.x - 320)*(13.5/200));
         
-        // net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
         if(pnt.x>320&&pnt.y>240){
 			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1-5,1,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1+2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
 			}
 		else if(pnt.x<320&&pnt.y<240) {
 				net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1,b-p1-5,1,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1-2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
 			}
 		else if(pnt.x>320&&pnt.y<240){
 				net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1,b-p1-5,1,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1+2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
 			} 
 		else{
 				net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1,b+p1-5,1,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1-2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
 			}
         }
-        else yaw+=1;
-        
-        
+        else {
+        a+=1.5,b=-10;
+        net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
+        }
         
         
         
