@@ -293,15 +293,15 @@ void RemoveBigRegion(cv::Mat &Src, cv::Mat &Dst, int AreaLimit, int CheckMode, i
 
 void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
     //是否开启打大符模式
-    bool attack_mode = 0;
+    bool attack_mode = 1;
     if(!attack_mode) return ;
     cv::Mat img_clone_circle=img_clone.clone();
     cv::Mat mask,mask_circle;
     cv::Scalar lower(113,0,214);
     cv::Scalar upper(180,255,255);
     cv::inRange(img_clone,lower,upper,mask);//识别目标
-    cv::Scalar lower_circle(94,0,0);
-    cv::Scalar upper_circle(172,255,112);
+    cv::Scalar lower_circle(0,33,204);
+    cv::Scalar upper_circle(179,255,255);
     cv::inRange(img_clone_circle,lower_circle,upper_circle,mask_circle);//拟合圆
 
     //泡水
@@ -313,14 +313,14 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
     cv::floodFill(mask, cv::Point(0, 0), cv::Scalar(0));//漫水法
     
     
-    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_CLOSE, element3);//闭运算
-    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_OPEN,  element4);//开运算
+    cv::morphologyEx(mask_circle, mask_circle, cv::MORPH_CLOSE, element4);//闭运算
     cv::floodFill(mask_circle, cv::Point(0, 0), cv::Scalar(0));//漫水法
-    cv::imshow("mask", mask_circle);
+    cv::GaussianBlur(mask_circle,mask_circle,cv::Size(9,9),2,2);
+    RemoveBigRegion(mask_circle, mask_circle, 400, 1, 1);
+    RemoveSmallRegion(mask_circle, mask_circle, 300, 1, 1);
+    cv::threshold(mask_circle, mask_circle, 0, 255, cv::THRESH_OTSU);
+    cv::imshow("img", mask_circle);
     cv::waitKey(1);
-    RemoveSmallRegion(mask_circle, mask_circle, 200, 1, 1);
-    // CheckMode:  0 代表去除黑区域， 1 代表去除白区域; NeihborMode： 0 代表 4 邻域， 1 代表 8 邻域;
-    RemoveBigRegion(mask_circle, mask_circle, 800, 1, 1);
     
     
     
@@ -364,7 +364,7 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
         if(area<200) continue;//通过面积和长宽筛选
         cv::Point2f rect[4];
 	    cv::RotatedRect box = cv::minAreaRect(cv::Mat(contours[i]));//获取最小外接矩阵
-	    cv::circle(img, cv::Point(box.center.x, box.center.y), 5, cv::Scalar(0, 255, 255), -3, -1);  //绘制最小外接矩形的中心点
+	    //cv::circle(img, cv::Point(box.center.x, box.center.y), 5, cv::Scalar(0, 255, 255), -3, -1);  //绘制最小外接矩形的中心点
 	    box.points(rect);  //把最小外接矩形四个端点复制给rect数组
 	    for (int j = 0; j < 4; j++){
 		cv::line(img, rect[j], rect[(j + 1) % 4], cv::Scalar(0, 255, 0), 2, 8);  //绘制最小外接矩形每条边
@@ -405,6 +405,5 @@ void MindmillAttacter(cv::Mat img_clone,cv::Mat img,double &previous_angle){
         // std::cout << img.cols<<" "<< img.rows<<std::endl;
         // net.sendControlMessage(Net::SendStruct(yaw+thetaX, pitch-thetaY, 1, 20.0, 0, 0.0, 0.0, -1, -1));
         // }
-    cv::imshow("img", img);
-    cv::waitKey(1);
+    
 }

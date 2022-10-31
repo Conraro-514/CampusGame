@@ -17,7 +17,7 @@ bool reg = 0;
 
 void error_handle(int error_id, std::string message);
 
-Net::NetworkManager net("127.0.0.1", "test", 25562, 25564, error_handle);
+Net::NetworkManager net("192.168.1.2", 20214250 ,"超高校级学园爱朵露队", 25562, 25564, error_handle);
 
 void sigint_handler(int sig) { exit(1); }
 
@@ -46,7 +46,7 @@ int main() {
 		int b = net.getNewestRecvMessage().pitch;
 		b = change(b);
         // if(a >=330) net.sendControlMessage(Net::SendStruct(30,-10,0,-1, 0, 0, 0, -1, -1));
-        if (a>=330||a<=45) a=180;
+        if (a>=330||a<=30) a=180;
         
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
@@ -63,53 +63,44 @@ int main() {
         MindmillAttacter(img_clone,img,previous_angle);
         
         //打靶
-        i++;
-        cv::Point pnt=ColorDetection(img_clone,img);
+        // i++;
+        // cv::Point pnt=ColorDetection(img_clone,img);
         
-        if(pnt.x==320&&pnt.y==240&&!i%10){
-            a+=30;
-            b=-7;
-        }
-        
-        
-        if(!pnt.x==0&&!pnt.y==0){
-        // std::cout<<pnt.x<<" "<<pnt.y<<std::endl;
-        // yaw+=(pnt.x-collimation.x)/200*13.4;
-        // pitch+=(pnt.y-collimation.y)/200*13.4;
-        
-        // if(pnt.x<collimation.x) yaw--;
-        // else if(pnt.y<collimation.y) pitch--;
-        // else if(pnt.y>collimation.y) pitch++;
-        // else if(pnt.x>collimation.x) yaw++;
+        // if(pnt.x==320&&pnt.y==240&&!i%10){
+        //     a+=30;
+        //     b=-7;
+        // }
         
         
+        // if(!pnt.x==0&&!pnt.y==0){
         
-        float p1 = fabs((pnt.y - 240)*(13.5/200));
-		float y1 = fabs((pnt.x - 320)*(13.5/200));
+        // float p1 = fabs((pnt.y - 240)*(13.5/200));
+		// float y1 = fabs((pnt.x - 320)*(13.5/200));
         
-        net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
-        if(pnt.x>320&&pnt.y>240){
-			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1+2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
-			}
-		else if(pnt.x<320&&pnt.y<240) {
-				net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1-2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
-			}
-		else if(pnt.x>320&&pnt.y<240){
-				net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1+2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
-			} 
-		else{
-				net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1-2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
-			}
-        }
-        else {
-        a+=1.5,b=-10;
-        net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
-        }
+        // net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        // if(pnt.x>320&&pnt.y>240){
+		// 	    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+		// 	    net.sendControlMessage(Net::SendStruct(a+y1+2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+		// 	}
+		// else if(pnt.x<320&&pnt.y<240) {
+		// 		net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+		// 		net.sendControlMessage(Net::SendStruct(a-y1-2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+		// 	}
+		// else if(pnt.x>320&&pnt.y<240){
+		// 		net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+		// 	    net.sendControlMessage(Net::SendStruct(a+y1+2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+		// 	} 
+		// else{
+		// 		net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+		// 		net.sendControlMessage(Net::SendStruct(a-y1-2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+		// 	}
+        // }
+        // else {
+        // a++,b=-8;
+        // net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
+        // }
         
+    
         
         
         
@@ -151,8 +142,8 @@ int main() {
 }
 
 void error_handle(int error_id, std::string message) {
-    if (error_id == 1) {
-        reg = 0; 
+    if (error_id == 5) {
+        reg = net.registerUser(0); 
     }
     std::cout << "Error: " << error_id << " " << message << std::endl;
  }
