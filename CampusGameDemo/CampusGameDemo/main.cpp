@@ -45,8 +45,8 @@ int main() {
         int a = net.getNewestRecvMessage().yaw;
 		int b = net.getNewestRecvMessage().pitch;
 		b = change(b);
-        // if(a >=330) net.sendControlMessage(Net::SendStruct(30,-10,0,-1, 0, 0, 0, -1, -1));
-        if (a>=330||a<=30) a=180;
+    
+        // if (a>=330||a<=30) a=180;
         
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
@@ -60,9 +60,59 @@ int main() {
         cv::Mat img_clone = img.clone();
         // cv::imshow(" ",img_clone);
         // cv::waitKey(1);
-        MindmillAttacter(img_clone,img,previous_angle);
+        cv::Point2f pnt=MindmillAttacter(img_clone,img,previous_angle);
         
-        //打靶
+        
+        ///////////////////////////////打符/////////////////////////////////
+        if(!pnt.x==0&&!pnt.y==0){
+        
+        float p1 = fabs((pnt.y - 240)*(13.7/200));
+		float y1 = fabs((pnt.x - 320)*(13.7/200));
+        
+        if(pnt.x>320&&pnt.y>240){
+			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+			}
+		else if(pnt.x<320&&pnt.y<240) {
+				net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+			}
+		else if(pnt.x>320&&pnt.y<240){
+				net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+			} 
+		else{
+				net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+			}
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /////////////////////////////打靶//////////////////////////////
         // i++;
         // cv::Point pnt=ColorDetection(img_clone,img);
         
@@ -130,6 +180,7 @@ int main() {
         // cv::imshow("mask", mask);
         // cv::waitKey(1);
         //GetContours(img,mask);
+        }
         
         continue;
         } else {
