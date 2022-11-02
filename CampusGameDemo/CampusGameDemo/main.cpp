@@ -17,7 +17,7 @@ bool reg = 0;
 
 void error_handle(int error_id, std::string message);
 
-Net::NetworkManager net("192.168.1.2", 20214250 ,"超高校级学园爱朵露队", 25562, 25564, error_handle);
+Net::NetworkManager net("192.168.1.3", 20214250 ,"超高校级学园爱朵露队", 25562, 25564, error_handle);
 
 void sigint_handler(int sig) { exit(1); }
 
@@ -39,9 +39,9 @@ int main() {
 	cv::KalmanFilter KF(stateNum, measureNum, 0);	
  
 	KF.transitionMatrix = (cv::Mat_<float>(4, 4) <<1,0,1,0,
-                                               0,1,0,1,
-                                               0,0,1,0,
-                                               0,0,0,1);  //转移矩阵A
+                                                   0,1,0,1,
+                                                   0,0,1,0,
+                                                   0,0,0,1);  //转移矩阵A
 	setIdentity(KF.measurementMatrix);                                             //测量矩阵H
 	setIdentity(KF.processNoiseCov, cv::Scalar::all(1e-5));                            //系统噪声方差矩阵Q
 	setIdentity(KF.measurementNoiseCov, cv::Scalar::all(1e-1));                        //测量噪声方差矩阵R
@@ -52,10 +52,10 @@ int main() {
     
     ///////////////////////////////
     signal(SIGINT, sigint_handler);
-    reg = net.registerUser(0);
+    reg = net.registerUser(cv::getTickCount());
     while (!reg) {
         std::cout << "Register failed, retrying..." << std::endl;
-        reg = net.registerUser(0);
+        reg = net.registerUser(cv::getTickCount());
     }
     std::cout << "Register success" << std::endl;
     float yaw =0;
@@ -73,7 +73,7 @@ int main() {
         
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
-            reg = net.registerUser(0);
+            reg = net.registerUser(cv::getTickCount());
         }
         cv::Mat img;
         img = net.getNewestRecvMessage().img;
@@ -131,7 +131,7 @@ int main() {
 
         net.sendControlMessage(Net::SendStruct(a,b-5,0,-1, 0, 0, 0, -1, -1));
 
-        if(!(i%5)){
+        if(!(i%6)){
         net.sendControlMessage(Net::SendStruct(a,b-5,1,-1, 0, 0, 0, -1, -1));
         }
 
