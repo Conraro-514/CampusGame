@@ -64,29 +64,34 @@ int main() {
         
         
         ///////////////////////////////打符/////////////////////////////////
+        i++;
         if(!pnt.x==0&&!pnt.y==0){
         
-        float p1 = fabs((pnt.y - 240)*(13.7/200));
-		float y1 = fabs((pnt.x - 320)*(13.7/200));
+        float p1 = fabs((pnt.y - 240)*(13.5/200));
+		float y1 = fabs((pnt.x - 320)*(13.5/200));
         
         if(pnt.x>320&&pnt.y>240){
-			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+			    a=a+y1;
+                b=b+p1;    
 			}
 		else if(pnt.x<320&&pnt.y<240) {
-				net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+				a=a-y1;
+                b=b-p1;
 			}
 		else if(pnt.x>320&&pnt.y<240){
-				net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+				a=a+y1;
+                b=b-p1;
 			} 
 		else{
-				net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+				a=a-y1;
+                b=b+p1;			
 			}
 
+        net.sendControlMessage(Net::SendStruct(a,b-5,0,-1, 0, 0, 0, -1, -1));
 
+        if(!(i%5)){
+        net.sendControlMessage(Net::SendStruct(a,b-5,1,-1, 0, 0, 0, -1, -1));
+        }
 
 
 
@@ -194,7 +199,7 @@ int main() {
 
 void error_handle(int error_id, std::string message) {
     if (error_id == 5) {
-        reg = net.registerUser(0); 
+        reg = net.registerUser(cv::getTickCount()); 
     }
     std::cout << "Error: " << error_id << " " << message << std::endl;
  }
