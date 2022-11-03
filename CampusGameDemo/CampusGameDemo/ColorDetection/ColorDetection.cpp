@@ -10,7 +10,44 @@ double getDistance (cv::Point2f pointO,cv::Point2f pointA )
     return distance;  
 }  
 
-cv::Point ColorDetection(cv::Mat img_clone, cv::Mat img){
+bool cmp(cv::Point2f x,cv::Point2f y){
+	if(x.x<y.x&&x.y<y.y){
+        return true;
+    }
+    else if(x.x<y.x&&x.y>y.y){
+        return true;
+    }
+    else{
+        return false;
+    } 
+}
+
+
+/**
+ * 功能： 通过给定的旋转矩阵计算对应的欧拉角**/
+cv::Vec3f rotationMatrixToEulerAngles(cv::Mat &R)
+{ 
+ 
+    float sy = sqrt(R.at<double>(0,0) * R.at<double>(0,0) +  R.at<double>(1,0) * R.at<double>(1,0) );
+ 
+ 
+    bool singular = sy < 1e-6; // If
+ 
+ 
+    float x, y, z;
+    if (!singular) {
+        x = atan2(R.at<double>(2,1) , R.at<double>(2,2));
+        y = atan2(-R.at<double>(2,0), sy);
+        z = atan2(R.at<double>(1,0), R.at<double>(0,0));
+    } else {
+        x = atan2(-R.at<double>(1,2), R.at<double>(1,1));
+        y = atan2(-R.at<double>(2,0), sy);
+        z = 0;
+    }
+    return cv::Vec3f(x, y, z);   
+}
+
+cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
 
     vector<Mat> channels;
     split(img_clone, channels);
@@ -56,7 +93,7 @@ cv::Point ColorDetection(cv::Mat img_clone, cv::Mat img){
         lightInfos.push_back(contours[i]);//符合条件的存起来
     }
     
-    cv::Point circleYes;
+    cv::Point2f circleYes;
 
     for(int i=0;i<lightInfos.size();i++){
             for(int j=0;j<lightInfos.size();j++){
@@ -72,15 +109,81 @@ cv::Point ColorDetection(cv::Mat img_clone, cv::Mat img){
                 abs(boxL.center.x-boxR.center.x)>meanLength&&
                 abs(boxL.center.y-boxR.center.y)>meanLength){
                 //cv::line(img, boxL.center, boxR.center, cv::Scalar(0, 255, 0), 2, 8);
-                    cv::Point2f center=(boxL.center+boxR.center)/2;
-                    //circle(img,center,5,Scalar(0,255,255),2);
-                    circleYes.x=center.x; 
-                    circleYes.y=center.y;               
+                cv::Point2f center=(boxL.center+boxR.center)/2;
+                //circle(img,center,5,Scalar(0,255,255),2);
+                circleYes.x=center.x; 
+                circleYes.y=center.y;     
+
+                //圈出目标以进行pnp操作
+                cv::Point2f targetRect[4];
+                cv::RotatedRect target(circleYes, 
+                                   cv::Size2f(2*abs(boxL.center.x-circleYes.x), 
+                                              2*abs(boxR.center.y-circleYes.y)), 
+                                       boxL.angle);
+                target.points(targetRect);
+                //对targetRect进行排序
+                sort(targetRect,targetRect+4,cmp);
+                
+                //像素坐标
+                std::vector<cv::Point2d> image_points; 
+                image_points.push_back(Point2d(targetRect[0].x, targetRect[0].y));
+                image_points.push_back(Point2d(targetRect[1].x, targetRect[1].y));
+                image_points.push_back(Point2d(targetRect[2].x, targetRect[2].y));
+                image_points.push_back(Point2d(targetRect[3].x, targetRect[3].y));  
+
+                //物体坐标
+                std::vector<Point3d> model_points;
+                model_points.push_back(Point3d(-50.0f, +50.0f, 0));
+                model_points.push_back(Point3d(-50.0f, -50.0f, 0));
+                model_points.push_back(Point3d(+50.0f, +50.0f, 0));
+                model_points.push_back(Point3d(+50.0f, -50.0f, 0));      
+
+                // 相机内参矩阵和畸变系数均由相机标定结果得出
+                // 相机内参矩阵
+                cv::Mat camera_matrix = (cv::Mat_<double>(3, 3) << 944.1089101158454, 0, 294.7671490601489,
+                                                           0, 941.1114167197278, 238.9584637813869,
+                                                           0, 0, 1);
+                // 相机畸变系数
+                cv::Mat dist_coeffs = (cv::Mat_<double>(5, 1) << -0.391591353380317, 8.893477113844746, 
+                                       -0.01789912573596753, -0.01602177447045374, -182.4064851685259);
+                
+                // 求解旋转和平移矩阵
+                    //旋转向量
+                    cv::Mat rotation_vector;
+                    //平移向量
+                    cv::Mat translation_vector;
+                
+                // pnp求解
+                solvePnP(model_points, image_points, camera_matrix, dist_coeffs, 
+                         rotation_vector, translation_vector, SOLVEPNP_P3P);
+                // 默认ITERATIVE方法，可尝试修改为EPNP（CV_EPNP）,P3P（CV_P3P）
+                
+                //旋转向量转成旋转矩阵
+                Mat Rvec;
+                Mat_<float> Tvec;
+                rotation_vector.convertTo(Rvec, CV_32F);  // 旋转向量转换格式
+                translation_vector.convertTo(Tvec, CV_32F); // 平移向量转换格式 
+                Mat_<float> rotMat(3, 3);
+                Rodrigues(Rvec, rotMat);//罗德里格斯变换
+
+                cv::Vec3f result=rotationMatrixToEulerAngles(rotMat);
+
+                return result;
                 }             
                }    
     }
- 
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     cv::imshow("img", img);
     cv::waitKey(1);
-    return circleYes;
 }
