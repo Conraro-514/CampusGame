@@ -10,6 +10,7 @@ double getDistance (cv::Point2f pointO,cv::Point2f pointA )
     return distance;  
 }  
 
+
 bool cmp(cv::Point2f x,cv::Point2f y){
 	if(x.x<y.x&&x.y<y.y){
         return true;
@@ -53,6 +54,7 @@ cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
     split(img_clone, channels);
     Mat thresholdImage,mask;
     bool enemy_color=1;
+    cv::Vec3f result;
     
     //目标颜色判断： true红色 false蓝色    通道相减
     if(enemy_color){
@@ -166,9 +168,9 @@ cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
                 Mat_<float> rotMat(3, 3);
                 Rodrigues(Rvec, rotMat);//罗德里格斯变换
 
-                cv::Vec3f result=rotationMatrixToEulerAngles(rotMat);
+                result=rotationMatrixToEulerAngles(rotMat);
 
-                return result;
+                
                 }             
                }    
     }
@@ -176,14 +178,7 @@ cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
     cv::imshow("img", img);
     cv::waitKey(1);
+    return result;
 }

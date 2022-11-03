@@ -64,7 +64,8 @@ int main() {
     cv::Point collimation=cv::Point(320,240);
     int i = 0;
     while (true){
-        
+        int timeRest=net.getNewestRecvMessage().rest_time;
+        int timeBuff=net.getNewestRecvMessage().buff_over_time;
         int a = net.getNewestRecvMessage().yaw;
 		int b = net.getNewestRecvMessage().pitch;
 		b = change(b);
@@ -87,6 +88,7 @@ int main() {
         
         
         ///////////////////////////////打符/////////////////////////////////
+        if(timeRest>100){
         cv::Point2f pnt=MindmillAttacter(img_clone,img,previous_angle);
 
         cv::Mat prediction = KF.predict();
@@ -99,10 +101,6 @@ int main() {
 			//draw
 		// cv::circle(img,predict_pt,5,cv::Scalar(0,0,255),3);    //predicted point with green
 		// cv::circle(img,pnt,5,cv::Scalar(255,0,0),3); //current position with red
-        
-        
-        
-        
         
         
         
@@ -134,99 +132,49 @@ int main() {
         if(!(i%6)){
         net.sendControlMessage(Net::SendStruct(a,b-5,1,-1, 0, 0, 0, -1, -1));
         }
+        }
+        }
 
-
-
-
-
-
-
-
+/////////////////////////////打靶//////////////////////////////
+        if(timeRest<100||timeRest>100&&timeBuff>0){
+        i++;
+        cv::Point pnt=ColorDetection(img_clone,img);
+        
+        if(pnt.x==320&&pnt.y==240&&!i%10){
+            a+=30;
+            b=-7;
+        }
         
         
+        if(!pnt.x==0&&!pnt.y==0){
         
+        float p1 = fabs((pnt.y - 240)*(13.5/200));
+		float y1 = fabs((pnt.x - 320)*(13.5/200));
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /////////////////////////////打靶//////////////////////////////
-        // i++;
-        // cv::Point pnt=ColorDetection(img_clone,img);
-        
-        // if(pnt.x==320&&pnt.y==240&&!i%10){
-        //     a+=30;
-        //     b=-7;
-        // }
-        
-        
-        // if(!pnt.x==0&&!pnt.y==0){
-        
-        // float p1 = fabs((pnt.y - 240)*(13.5/200));
-		// float y1 = fabs((pnt.x - 320)*(13.5/200));
-        
-        // net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
-        // if(pnt.x>320&&pnt.y>240){
-		// 	    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-		// 	    net.sendControlMessage(Net::SendStruct(a+y1+2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
-		// 	}
-		// else if(pnt.x<320&&pnt.y<240) {
-		// 		net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-		// 		net.sendControlMessage(Net::SendStruct(a-y1-2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
-		// 	}
-		// else if(pnt.x>320&&pnt.y<240){
-		// 		net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-		// 	    net.sendControlMessage(Net::SendStruct(a+y1+2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
-		// 	} 
-		// else{
-		// 		net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-		// 		net.sendControlMessage(Net::SendStruct(a-y1-2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
-		// 	}
-        // }
-        // else {
-        // a++,b=-8;
-        // net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
-        // }
+        net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        if(pnt.x>320&&pnt.y>240){
+			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1+2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+			}
+		else if(pnt.x<320&&pnt.y<240) {
+				net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1-2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+			}
+		else if(pnt.x>320&&pnt.y<240){
+				net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
+			    net.sendControlMessage(Net::SendStruct(a+y1+2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
+			} 
+		else{
+				net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
+				net.sendControlMessage(Net::SendStruct(a-y1-2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
+			}
+        }
+        else {
+        a++,b=-8;
+        net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
+        }
         
     
-        
-        
-        
-        
-        
-        //大符
-        //像素坐标和欧拉角转换
-        // double fx=941.608;
-        // double fy=943.231;
-        // double thetaX=atan((PointPre.x-img.cols/2)/(7/fx));
-        // double thetaY=atan((PointPre.y-img.rows/2)/(7/fx));
-        // std::cout<<PointPre.x<<" "<<PointPre.y<<std::endl;
-        // std::cout << img.cols<<" "<< img.rows<<std::endl;
-        // std::cout << thetaX<<" "<< thetaY<<std::endl;
-        
-        // if(PointPre!=cv::Point2f(-1,-1)&&
-        //    PointPre.x!=0&&
-        //    PointPre.y!=0&&
-        //    !i%300){
-        // std::cout<<PointPre.x<<" "<<PointPre.y<<std::endl;
-        // std::cout << thetaX<<" "<< thetaY<<std::endl;
-        // std::cout << img.cols<<" "<< img.rows<<std::endl;
-        // net.sendControlMessage(Net::SendStruct(yaw+thetaX, pitch-thetaY, 1, 20.0, 0, 0.0, 0.0, -1, -1));
-        // }
-        // cv::Mat mask=ColorDetection(img_clone);s
-
-        // cv::imshow("mask", mask);
-        // cv::waitKey(1);
-        //GetContours(img,mask);
         }
         
         continue;
