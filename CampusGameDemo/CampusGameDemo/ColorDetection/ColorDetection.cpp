@@ -26,36 +26,21 @@ bool cmp(cv::Point2f x,cv::Point2f y){
 
 /**
  * 功能： 通过给定的旋转矩阵计算对应的欧拉角**/
-cv::Vec3f rotationMatrixToEulerAngles(cv::Mat &R)
+double rotationMatrixToEulerAngles(cv::Mat &T)
 { 
  
-    float sy = sqrt(R.at<double>(0,0) * R.at<double>(0,0) +  R.at<double>(1,0) * R.at<double>(1,0) );
- 
- 
-    bool singular = sy < 1e-6; // If
- 
- 
-    float x, y, z;
-    if (!singular) {
-        x = atan2(R.at<double>(2,1) , R.at<double>(2,2));
-        y = atan2(-R.at<double>(2,0), sy);
-        z = atan2(R.at<double>(1,0), R.at<double>(0,0));
-    } else {
-        x = atan2(-R.at<double>(1,2), R.at<double>(1,1));
-        y = atan2(-R.at<double>(2,0), sy);
-        z = 0;
-    }
-    return cv::Vec3f(x, y, z);   
+    double dYaw= atan2(T.at<double>(0,0),T.at<double>(2,0));
+    double dPitch= atan(T.at<double>(1,0)/(double)sqrt((T.at<double>(0,0)*T.at<double>(0,0))+(T.at<double>(2,0)*T.at<double>(2,0))));
+    return dYaw,dPitch;
 }
-
-cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
+double ColorDetection(cv::Mat img_clone, cv::Mat img){
 
     vector<Mat> channels;
     split(img_clone, channels);
     Mat thresholdImage,mask;
     bool enemy_color=1;
-    cv::Vec3f result;
-    
+    double dYaw,dPitch;
+
     //目标颜色判断： true红色 false蓝色    通道相减
     if(enemy_color){
         cv::subtract(channels[2],channels[0],img_clone);
@@ -135,10 +120,10 @@ cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
 
                 //物体坐标
                 std::vector<Point3d> model_points;
-                model_points.push_back(Point3d(-50.0f, +50.0f, 0));
-                model_points.push_back(Point3d(-50.0f, -50.0f, 0));
-                model_points.push_back(Point3d(+50.0f, +50.0f, 0));
-                model_points.push_back(Point3d(+50.0f, -50.0f, 0));      
+                model_points.push_back(Point3d(-37.5f, +37.5f, 0));
+                model_points.push_back(Point3d(-37.5f, -37.5f, 0));
+                model_points.push_back(Point3d(+37.5f, +37.5f, 0));
+                model_points.push_back(Point3d(+37.5f, -37.5f, 0));      
 
                 // 相机内参矩阵和畸变系数均由相机标定结果得出
                 // 相机内参矩阵
@@ -157,7 +142,7 @@ cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
                 
                 // pnp求解
                 solvePnP(model_points, image_points, camera_matrix, dist_coeffs, 
-                         rotation_vector, translation_vector, SOLVEPNP_P3P);
+                         rotation_vector, translation_vector);
                 // 默认ITERATIVE方法，可尝试修改为EPNP（CV_EPNP）,P3P（CV_P3P）
                 
                 //旋转向量转成旋转矩阵
@@ -167,18 +152,20 @@ cv::Vec3f ColorDetection(cv::Mat img_clone, cv::Mat img){
                 translation_vector.convertTo(Tvec, CV_32F); // 平移向量转换格式 
                 Mat_<float> rotMat(3, 3);
                 Rodrigues(Rvec, rotMat);//罗德里格斯变换
+                std::cout<<"Rvec:"<<Rvec<<std::endl;
+                std::cout<<"Tvec:"<<Tvec<<std::endl; 
+                dYaw,dPitch=rotationMatrixToEulerAngles(rotMat);
 
-                result=rotationMatrixToEulerAngles(rotMat);
-
+                // rotation_vector.release();
+                // translation_vector.release();    
                 
                 }             
                }    
     }
-    
 
-    
+
     
     cv::imshow("img", img);
     cv::waitKey(1);
-    return result;
+    return dYaw,dPitch;
 }

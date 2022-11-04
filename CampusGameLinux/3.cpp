@@ -1,12 +1,12 @@
 #include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<opencv2/opencv.hpp>
+using namespace std; 
+using namespace cv;
 int main(){
-    int p, N;
-    printf(" give in input a positive integer value N:");
-    scanf("%d",&N);
-    p=1;
-    while (p + 2 < N) p = p + 2;
-	if(p + 2 >= N){
-	printf("P=%d is the biggest odd less than N=%d\n ", p ,N);
-	}
+    cout<<atan(1.255477)<<endl;
+    cout<<atan(1.257641)<<endl;
+    cout<<14.0/200<<endl;
        return 0;
 }

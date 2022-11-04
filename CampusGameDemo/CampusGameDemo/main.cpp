@@ -64,12 +64,14 @@ int main() {
     cv::Point collimation=cv::Point(320,240);
     int i = 0;
     while (true){
+        net.sendPulse();
         int timeRest=net.getNewestRecvMessage().rest_time;
         int timeBuff=net.getNewestRecvMessage().buff_over_time;
         int a = net.getNewestRecvMessage().yaw;
 		int b = net.getNewestRecvMessage().pitch;
 		b = change(b);
-    
+
+        // std::cout<<a<<" "<<b<<std::endl;
         // if (a>=330||a<=30) a=180;
         
         while (!reg) {
@@ -88,7 +90,11 @@ int main() {
         
         
         ///////////////////////////////打符/////////////////////////////////
-        if(timeRest>100){
+        // if(b<-15||b>10||50>a>7||300<a<353){
+        //     net.sendControlMessage(Net::SendStruct(0,-3,0,-1, 0, 0, 0, -1, -1));
+        // }
+        std::cout << timeRest<<std::endl;
+        if(timeRest>95){
         cv::Point2f pnt=MindmillAttacter(img_clone,img,previous_angle);
 
         cv::Mat prediction = KF.predict();
@@ -103,12 +109,11 @@ int main() {
 		// cv::circle(img,pnt,5,cv::Scalar(255,0,0),3); //current position with red
         
         
-        
         i++;
         if(!pnt.x==0&&!pnt.y==0){
         
-        float p1 = fabs((pnt.y - 240)*(13.5/200));
-		float y1 = fabs((pnt.x - 320)*(13.5/200));
+        float p1 = fabs((pnt.y - 240)*0.08);
+		float y1 = fabs((pnt.x - 320)*0.08);
         
         if(pnt.x>320&&pnt.y>240){
 			    a=a+y1;
@@ -128,53 +133,24 @@ int main() {
 			}
 
         net.sendControlMessage(Net::SendStruct(a,b-5,0,-1, 0, 0, 0, -1, -1));
-
+        cv::waitKey(30);
         if(!(i%6)){
-        net.sendControlMessage(Net::SendStruct(a,b-5,1,-1, 0, 0, 0, -1, -1));
+        net.sendControlMessage(Net::SendStruct(a,b-5,2,-1, 0, 0, 0, -1, -1));
         }
         }
         }
 
 /////////////////////////////打靶//////////////////////////////
-        if(timeRest<100||timeRest>100&&timeBuff>0){
+        if(timeRest<95){
         i++;
-        cv::Point pnt=ColorDetection(img_clone,img);
+        double dYaw,dPitch=ColorDetection(img_clone,img);
         
-        if(pnt.x==320&&pnt.y==240&&!i%10){
-            a+=30;
-            b=-7;
-        }
+        float p1 = dPitch;
+		float y1 = dYaw;
         
-        
-        if(!pnt.x==0&&!pnt.y==0){
-        
-        float p1 = fabs((pnt.y - 240)*(13.5/200));
-		float y1 = fabs((pnt.x - 320)*(13.5/200));
-        
-        net.sendControlMessage(Net::SendStruct(yaw, pitch, 1, 20.0, 0, 0.0, 0.0, -1, -1));
-        if(pnt.x>320&&pnt.y>240){
-			    net.sendControlMessage(Net::SendStruct(a+y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1+2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
-			}
-		else if(pnt.x<320&&pnt.y<240) {
-				net.sendControlMessage(Net::SendStruct(a-y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1-2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
-			}
-		else if(pnt.x>320&&pnt.y<240){
-				net.sendControlMessage(Net::SendStruct(a+y1,b-p1,0,-1, 0, 0, 0, -1, -1));
-			    net.sendControlMessage(Net::SendStruct(a+y1+2,b-p1-7,1,-1, 0, 0, 0, -1, -1));
-			} 
-		else{
-				net.sendControlMessage(Net::SendStruct(a-y1,b+p1,0,-1, 0, 0, 0, -1, -1));
-				net.sendControlMessage(Net::SendStruct(a-y1-2,b+p1-7,1,-1, 0, 0, 0, -1, -1));
-			}
-        }
-        else {
-        a++,b=-8;
-        net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
-        }
-        
-    
+        // net.sendControlMessage(Net::SendStruct(a+y1, b+p1, 0, 20.0, 0, 0.0, 0.0, -1, -1));
+        // cv::waitKey(10);
+        // net.sendControlMessage(Net::SendStruct(a+y1, b+p1, 1, 20.0, 0, 0.0, 0.0, -1, -1));
         }
         
         continue;
@@ -182,7 +158,6 @@ int main() {
             std::cout << "Get an empty image" << std::endl;
             cv::waitKey(100);
         }
-        i++;
     }
     return 0;
 }
