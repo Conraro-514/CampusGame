@@ -71,9 +71,6 @@ int main() {
 		int b = net.getNewestRecvMessage().pitch;
 		b = change(b);
 
-        // std::cout<<a<<" "<<b<<std::endl;
-        // if (a>=330||a<=30) a=180;
-        
         while (!reg) {
             std::cout << "Register failed, retrying..." << std::endl;
             reg = net.registerUser(cv::getTickCount());
@@ -84,36 +81,21 @@ int main() {
 
   ///////////  My  Code/////////////  
         cv::Mat img_clone = img.clone();
-        // cv::imshow(" ",img_clone);
-        // cv::waitKey(1);
-        
-        
-        
+       
         ///////////////////////////////打符/////////////////////////////////
         // if(b<-15||b>10||50>a>7||300<a<353){
         //     net.sendControlMessage(Net::SendStruct(0,-3,0,-1, 0, 0, 0, -1, -1));
         // }
         std::cout << timeRest<<std::endl;
-        if(timeRest>95){
+        if(timeRest>100||timeRest==0){
         cv::Point2f pnt=MindmillAttacter(img_clone,img,previous_angle);
 
-        cv::Mat prediction = KF.predict();
-		cv::Point predict_pt = cv::Point(prediction.at<float>(0),prediction.at<float>(1) );   //预测值(x',y')
-			//3.update measurement
-		measurement.at<float>(0) = (float)pnt.x;
-		measurement.at<float>(1) = (float)pnt.y;
-			//4.update
-		KF.correct(measurement);
-			//draw
-		// cv::circle(img,predict_pt,5,cv::Scalar(0,0,255),3);    //predicted point with green
-		// cv::circle(img,pnt,5,cv::Scalar(255,0,0),3); //current position with red
-        
         
         i++;
         if(!pnt.x==0&&!pnt.y==0){
         
-        float p1 = fabs((pnt.y - 240)*0.08);
-		float y1 = fabs((pnt.x - 320)*0.08);
+        float p1 = fabs((pnt.y - 240)*0.078);
+		float y1 = fabs((pnt.x - 320)*0.078);
         
         if(pnt.x>320&&pnt.y>240){
 			    a=a+y1;
@@ -141,16 +123,52 @@ int main() {
         }
 
 /////////////////////////////打靶//////////////////////////////
-        if(timeRest<95){
+        
+        else {
         i++;
-        double dYaw,dPitch=ColorDetection(img_clone,img);
+        cv::Point pnt=ColorDetection(img_clone,img);
         
-        float p1 = dPitch;
-		float y1 = dYaw;
+        cv::Mat prediction = KF.predict();
+		cv::Point predict_pt = cv::Point(prediction.at<float>(0),prediction.at<float>(1) );   //预测值(x',y')
+			//3.update measurement
+		measurement.at<float>(0) = (float)pnt.x;
+		measurement.at<float>(1) = (float)pnt.y;
+			//4.update
+		KF.correct(measurement);
+			//draw
+		// cv::circle(img,predict_pt,5,cv::Scalar(0,0,255),3);    //predicted point with green
+		// cv::circle(img,pnt,5,cv::Scalar(255,0,0),3); //current position with red
         
-        // net.sendControlMessage(Net::SendStruct(a+y1, b+p1, 0, 20.0, 0, 0.0, 0.0, -1, -1));
-        // cv::waitKey(10);
-        // net.sendControlMessage(Net::SendStruct(a+y1, b+p1, 1, 20.0, 0, 0.0, 0.0, -1, -1));
+        if(pnt.x==320&&pnt.y==240&&!i%10){
+            a+=30;
+            b=-7;
+        }
+        
+        if (a>=330||a<=45) a=180;
+        
+        if(!pnt.x==0&&!pnt.y==0){
+        
+        int t;
+        float p1 = fabs((predict_pt.y - 240)*(0.078));
+		float y1 = fabs((predict_pt.x - 320)*(0.078));
+        
+        if(p1<5&&y1<3){
+            t = 2;
+        }
+		else{
+            t = 5;
+        }	
+		
+        if(predict_pt.x>320)a+=t;
+		else if(predict_pt.x<320) a-=t;
+		if((predict_pt.y-50)<240)b-=t;
+		else if((predict_pt.y-50)>240)b+=t;
+		net.sendControlMessage(Net::SendStruct(a,b,1,0,-1, 0, 0, 0, -1, -1));
+        }
+        else {
+        a+=1.5,b=-10;
+        net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
+        }
         }
         
         continue;

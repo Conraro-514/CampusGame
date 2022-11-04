@@ -5,7 +5,7 @@
 #include <NetworkManager.h>
 #include <algorithm>
 
-double ColorDetection(cv::Mat img_clone,cv::Mat img);
+cv::Point2f ColorDetection(cv::Mat img_clone,cv::Mat img);
 
 double getDistance (cv::Point2f pointO,cv::Point2f pointA );
 
