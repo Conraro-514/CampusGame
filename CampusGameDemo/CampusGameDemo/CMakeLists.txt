@@ -44,7 +44,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 aux_source_directory(./src PROJECT_SRCS)
 aux_source_directory(./ColorDetection COLOR_SRCS)
-aux_source_directory(./MindmillAttacter MINDMILL_SRCS)
+aux_source_directory(./MindmillAttackter MINDMILL_SRCS)
 
 
 add_executable(CampusGame_demo "main.cpp" ${MINDMILL_SRCS} ${COLOR_SRCS} ${PROJECT_SRCS})

@@ -10,7 +10,7 @@
 #include <opencv2/video/tracking.hpp> 
 
 #include "ColorDetection/ColorDetection.h"
-#include "MindmillAttacter/MindmillAttacter.h"
+#include "MindmillAttackter/MindmillAttackter.h"
 
                         
 bool reg = 0;
@@ -82,14 +82,16 @@ int main() {
   ///////////  My  Code/////////////  
         cv::Mat img_clone = img.clone();
        
+        std::cout<<net.getNewestRecvMessage().bullet_speed<<std::endl;
         ///////////////////////////////打符/////////////////////////////////
-        // if(b<-15||b>10||50>a>7||300<a<353){
-        //     net.sendControlMessage(Net::SendStruct(0,-3,0,-1, 0, 0, 0, -1, -1));
-        // }
+        
         std::cout << timeRest<<std::endl;
-        if(timeRest>100||timeRest==0){
-        cv::Point2f pnt=MindmillAttacter(img_clone,img,previous_angle);
-
+        if(timeRest>95||timeRest==0){
+        cv::Point2f pnt=MindmillAttackter(img_clone,img,previous_angle);
+        
+        if(b<-15||b>10){
+            net.sendControlMessage(Net::SendStruct(0,-3,0,-1, 0, 0, 0, -1, -1));
+        }
         
         i++;
         if(!pnt.x==0&&!pnt.y==0){
@@ -114,10 +116,10 @@ int main() {
                 b=b+p1;			
 			}
 
-        net.sendControlMessage(Net::SendStruct(a,b-5,0,-1, 0, 0, 0, -1, -1));
+        net.sendControlMessage(Net::SendStruct(a,b-8,0,-1, 0, 0, 0, -1, -1));
         cv::waitKey(30);
-        if(!(i%6)){
-        net.sendControlMessage(Net::SendStruct(a,b-5,2,-1, 0, 0, 0, -1, -1));
+        if(!(i%12)){
+        net.sendControlMessage(Net::SendStruct(a,b-8,1,-1, 0, 0, 0, -1, -1));
         }
         }
         }
@@ -128,29 +130,29 @@ int main() {
         i++;
         cv::Point pnt=ColorDetection(img_clone,img);
         
-        cv::Mat prediction = KF.predict();
-		cv::Point predict_pt = cv::Point(prediction.at<float>(0),prediction.at<float>(1) );   //预测值(x',y')
-			//3.update measurement
-		measurement.at<float>(0) = (float)pnt.x;
-		measurement.at<float>(1) = (float)pnt.y;
-			//4.update
-		KF.correct(measurement);
-			//draw
-		// cv::circle(img,predict_pt,5,cv::Scalar(0,0,255),3);    //predicted point with green
-		// cv::circle(img,pnt,5,cv::Scalar(255,0,0),3); //current position with red
+        // cv::Mat prediction = KF.predict();
+		// cv::Point predict_pt = cv::Point(prediction.at<float>(0),prediction.at<float>(1) );   //预测值(x',y')
+		// 	//3.update measurement
+		// measurement.at<float>(0) = (float)pnt.x;
+		// measurement.at<float>(1) = (float)pnt.y;
+		// 	//4.update
+		// KF.correct(measurement);
+		// 	//draw
+		// // cv::circle(img,predict_pt,5,cv::Scalar(0,0,255),3);    //predicted point with green
+		// // cv::circle(img,pnt,5,cv::Scalar(255,0,0),3); //current position with red
         
         if(pnt.x==320&&pnt.y==240&&!i%10){
             a+=30;
             b=-7;
         }
         
-        if (a>=330||a<=45) a=180;
+        if (a>=330||a<=45) a=55;
         
         if(!pnt.x==0&&!pnt.y==0){
         
         int t;
-        float p1 = fabs((predict_pt.y - 240)*(0.078));
-		float y1 = fabs((predict_pt.x - 320)*(0.078));
+        float p1 = fabs((pnt.y - 240)*(0.078));
+		float y1 = fabs((pnt.x - 320)*(0.078));
         
         if(p1<5&&y1<3){
             t = 2;
@@ -159,14 +161,14 @@ int main() {
             t = 5;
         }	
 		
-        if(predict_pt.x>320)a+=t;
-		else if(predict_pt.x<320) a-=t;
-		if((predict_pt.y-50)<240)b-=t;
-		else if((predict_pt.y-50)>240)b+=t;
-		net.sendControlMessage(Net::SendStruct(a,b,1,0,-1, 0, 0, 0, -1, -1));
+        if(pnt.x>320)a+=t;
+		else if(pnt.x<320) a-=t;
+		if((pnt.y-50)<240)b-=t;
+		else if((pnt.y-50)>240)b+=t;
+        net.sendControlMessage(Net::SendStruct(a,b,1,0,-1, 0, 0, 0, -1, -1));
         }
         else {
-        a+=1.5,b=-10;
+        a+=3,b=-10;
         net.sendControlMessage(Net::SendStruct(a,b,0,-1, 0, 0, 0, -1, -1));
         }
         }
